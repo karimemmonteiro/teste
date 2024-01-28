@@ -1,4 +1,4 @@
-// _app.tsx
+
 import React from 'react';
 import { AppProps } from 'next/app';
 import { register, unregister } from 'next-offline/runtime';
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = false;
 
     if (isProduction) {
       register();

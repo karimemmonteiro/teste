@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "next.config.mjs",
+        "use": "@now/next",
+        "config": { "prisma": { "generate": true } }
+      }
+    ],
+    "routes": [
+      { "handle": "filesystem" },
+      { "src": "/.*", "dest": "index.tsx" }
+    ]
+  }
+  
