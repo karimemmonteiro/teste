@@ -1,11 +1,8 @@
-// pages/_app.tsx
+// _app.tsx
 import React from 'react';
 import { AppProps } from 'next/app';
 import { register, unregister } from 'next-offline/runtime';
 import { Metadata } from 'next';
-
-// Importe a instância do Prisma Client
-import prisma from '../lib/prisma';
 
 export const metadata: Metadata = {
   manifest: '/manifest.json',
@@ -15,7 +12,7 @@ export const metadata: Metadata = {
 
 function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
-    const isProduction = false;
+    const isProduction = process.env.NODE_ENV === 'production';
 
     if (isProduction) {
       register();
@@ -24,7 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
 
-  // Use a instância do Prisma Client
   return <Component {...pageProps} />;
 }
 
