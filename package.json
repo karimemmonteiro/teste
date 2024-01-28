@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "mkdir -p /vercel/path0/data && touch /vercel/path0/data/dev.db && prisma generate && next build",
+    "build": "mkdir -p /vercel/path0/data && touch /vercel/path0/data/dev.db && yarn prisma generate && yarn next build",
     "start": "prisma generate && next start",
     "type-check": "tsc"
   },
