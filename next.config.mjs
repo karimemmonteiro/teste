@@ -17,8 +17,17 @@ export default withPWA({
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Adicione a geração do Prisma Client aqui
-      require('./prisma/client').PrismaClientPromise;
+      // Certifique-se de que o Prisma Client seja gerado corretamente
+      const originalEntry = config.entry;
+
+      config.entry = async () => {
+        const entries = { ...(await originalEntry()) };
+
+        // Adicione a geração do Prisma Client aqui
+        entries['./prisma/client'] = './prisma/client';
+
+        return entries;
+      };
     }
     return config;
   },
