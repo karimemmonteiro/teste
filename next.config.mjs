@@ -23,8 +23,8 @@ export default withPWA({
       config.entry = async () => {
         const entries = { ...(await originalEntry()) };
 
-        // Adicione a geração do Prisma Client aqui
-        entries['./prisma/client'] = './prisma/client';
+        // Certifique-se de que o caminho do Prisma Client esteja correto
+        entries['./prisma/client'] = require.resolve('./prisma/client');
 
         return entries;
       };
