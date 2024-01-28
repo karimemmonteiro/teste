@@ -17,7 +17,6 @@ export default withPWA({
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Certifique-se de que o Prisma Client seja gerado corretamente
       const originalEntry = config.entry;
 
       config.entry = async () => {

@@ -1,8 +1,11 @@
-
+// pages/_app.tsx
 import React from 'react';
 import { AppProps } from 'next/app';
 import { register, unregister } from 'next-offline/runtime';
 import { Metadata } from 'next';
+
+// Importe a instância do Prisma Client
+import prisma from '../lib/prisma';
 
 export const metadata: Metadata = {
   manifest: '/manifest.json',
@@ -21,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
 
+  // Use a instância do Prisma Client
   return <Component {...pageProps} />;
 }
 
