@@ -111,7 +111,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Karimem_Cavalcante\\pocs\\sqlite\\prisma\\generated\\client",
+      "value": "C:\\Users\\Karimem_Cavalcante\\projetos\\front\\teste\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -138,7 +138,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
-  "postinstall": true,
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
