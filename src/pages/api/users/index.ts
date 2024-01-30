@@ -1,5 +1,5 @@
 // pages/api/users.ts
-import { PrismaClient } from '../../../prisma/generated/client';
+import { PrismaClient } from '../../../../prisma/generated/client';
 
 export default async function handler(req, res) {
   const prisma = new PrismaClient();
