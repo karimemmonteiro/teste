@@ -9,6 +9,9 @@ export const AppRouter = {
         login: {
             name: "/login"
         },
+        offline: {
+            name: "/_offline"
+        },
         forget_password: "/forget_password"
     }
 

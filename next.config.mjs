@@ -11,11 +11,7 @@ const nextConfig = {
           destination: "/login", // Adapte conforme a estrutura do seu AppRouter
           permanent: true,
         },
-        {
-          source: '/:path*',
-          destination: '/offline', // Redirecionamento para a página offline
-          permanent: true,
-        },
+      
       ];
   },
 };
