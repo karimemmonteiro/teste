@@ -20,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         });
     }
   }, []);
+  
   const pathname = usePathname();
   const isPublicPage = verficicationRouters(pathname)
   const isAutentication = AutenticationsUser()
