@@ -1,10 +1,10 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { verficicationRouters } from "../functions/verificationRouters";
 import { AutenticationsUser } from "../context/AuthContext";
 import Sidebar from "../components/SideBar";
-import "../global.css"
+import "../global.css";
 import Login from "./login";
 import { useEffect } from "react";
 
@@ -20,10 +20,10 @@ export default function App({ Component, pageProps }: AppProps) {
         });
     }
   }, []);
-  
+
   const pathname = usePathname();
-  const isPublicPage = verficicationRouters(pathname)
-  const isAutentication = AutenticationsUser()
+  const isPublicPage = verficicationRouters(pathname);
+  const isAutentication = AutenticationsUser();
 
   return (
     <>
@@ -40,20 +40,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
         <link rel="mask-icon" href="/icons/mask-icon.svg" color="#FFFFFF" />
       </Head>
-      {
-        isPublicPage ?
-          <Component {...pageProps} />
-          :
-          <main>
-
-            {isAutentication?
-              <main>
-                <Sidebar />
-                <Component {...pageProps} />
-              </main>
-              : <Login/>}
-          </main>
-      }
+      {isPublicPage ? (
+        <Component {...pageProps} />
+      ) : (
+        <main>
+          {isAutentication ? (
+            <main>
+              <Sidebar />
+              <Component {...pageProps} />
+            </main>
+          ) : (
+            <Login />
+          )}
+        </main>
+      )}
     </>
   );
 }
