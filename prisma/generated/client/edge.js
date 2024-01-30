@@ -110,7 +110,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Karimem_Cavalcante\\pocs\\sqlite\\prisma\\generated\\client",
+      "value": "C:\\Users\\Karimem_Cavalcante\\projetos\\front\\teste\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -127,7 +127,8 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": "../../../.env",
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
   "clientVersion": "5.8.1",
@@ -140,13 +141,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": null,
-        "value": "file:./dev.db"
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
       }
     }
   },
-  "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7DQogIHByb3ZpZGVyID0gInByaXNtYS1jbGllbnQtanMiDQogIG91dHB1dCAgID0gIi4vZ2VuZXJhdGVkL2NsaWVudCINCn0NCg0KZGF0YXNvdXJjZSBkYiB7DQogIHByb3ZpZGVyID0gInNxbGl0ZSINCiAgdXJsICAgICAgPSAiZmlsZTouL2Rldi5kYiINCn0NCg0KbW9kZWwgVXNlciB7DQogIGlkICAgIEludCAgICBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQ0KICBuYW1lICBTdHJpbmcNCiAgZW1haWwgU3RyaW5nIEB1bmlxdWUNCn0NCg==",
-  "inlineSchemaHash": "9a3a8adf05fc92a068b2922e2e8dd2664fc431e45348925e3c04797d28e368d4",
+  "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7DQogIHByb3ZpZGVyID0gInByaXNtYS1jbGllbnQtanMiDQogIG91dHB1dCAgID0gIi4vZ2VuZXJhdGVkL2NsaWVudCINCn0NCg0KZGF0YXNvdXJjZSBkYiB7DQogIHByb3ZpZGVyID0gInNxbGl0ZSINCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpDQp9DQoNCm1vZGVsIFVzZXIgew0KICBpZCAgICBJbnQgICAgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkNCiAgbmFtZSAgU3RyaW5nDQogIGVtYWlsIFN0cmluZyBAdW5pcXVlDQp9DQo=",
+  "inlineSchemaHash": "6df37dba57f83ef91f124fb54cb33abff611037a5f7bdbb49db7391561552b34",
   "noEngine": false
 }
 config.dirname = '/'
@@ -156,7 +157,9 @@ defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.getQueryEngineWasmModule = undefined
 
 config.injectableEdgeEnv = () => ({
-  parsed: {}
+  parsed: {
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
+  }
 })
 
 if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
