@@ -1,16 +1,15 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
+  output   = "./generated/client"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = "file:/vercel/path0/data/dev.db"
+  url      = "file:./dev.db"
 }
 
-model Product {
-  id       Int      @id @default(autoincrement())
-  name     String
-  price    Float
-  quantity Int
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
 }

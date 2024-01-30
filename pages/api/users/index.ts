@@ -1,16 +1,24 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { sampleUserData } from "../../../utils/sample-data";
+// pages/api/users.ts
+import { PrismaClient } from '../../../prisma/generated/client';
 
-const handler = (_req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    if (!Array.isArray(sampleUserData)) {
-      throw new Error("Cannot find user data");
-    }
+export default async function handler(req, res) {
+  const prisma = new PrismaClient();
 
-    res.status(200).json(sampleUserData);
-  } catch (err: any) {
-    res.status(500).json({ statusCode: 500, message: err.message });
+  if (req.method === 'GET') {
+    const users = await prisma.user.findMany();
+    res.status(200).json({ users });
+  } else if (req.method === 'POST') {
+    const { name, email } = req.body;
+    const newUser = await prisma.user.create({
+      data: {
+        name,
+        email,
+      },
+    });
+    res.status(201).json(newUser);
+  } else {
+    res.status(405).end(); // Método não permitido
   }
-};
 
-export default handler;
+  prisma.$disconnect();
+}
