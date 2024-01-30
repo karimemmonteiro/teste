@@ -6,10 +6,16 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/',
         '/index.html',
-        '/styles.css',
-        '/atendimento',  // Substitua isso pelas URLs reais de suas páginas
-        '/login',
+        '/manifest.json',
+        '/favicon.ico',
+        '/icons/mask-icon.svg',
+        '/icons/touch-icon-iphone.png',
+        '/icons/twitter.png',
+        '/service-worker.js',
         // Adicione outras páginas estáticas aqui
+        '/atendimento',
+        '/login',
+        // Adicione todas as suas páginas .tsx aqui
       ]);
     })
   );
@@ -39,6 +45,9 @@ self.addEventListener('fetch', (event) => {
         });
 
         return response;
+      }).catch(() => {
+        // Caso ocorra um erro na rede, tenta recuperar do cache
+        return caches.match('/offline.html');  // Substitua pelo caminho de uma página offline real
       });
     })
   );
