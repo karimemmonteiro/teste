@@ -1,19 +1,29 @@
+// next.config.mjs
 import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from "next/constants.js";
 
-/** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
 
   async redirects() {
-      return [
-        {
-          source: '/',
-          destination: "/login", // Adapte conforme a estrutura do seu AppRouter
-          permanent: true,
-        },
-      
-      ];
+    return [
+      {
+        source: '/',
+        destination: "/login", // Adapte conforme a estrutura do seu AppRouter
+        permanent: true,
+      },
+    ];
   },
+};
+
+const exportPathMap = async function (
+  defaultPathMap,
+  { dev, dir, outDir, distDir, buildId }
+) {
+  return {
+    '/': { page: '/' },
+    '/login': { page: '/login' },
+    '/atendimento': { page: '/atendimento' },
+  };
 };
 
 const nextConfigFunction = async (phase) => {
@@ -22,12 +32,12 @@ const nextConfigFunction = async (phase) => {
       dest: "public",
       fallbacks: {
         image: '/offline.png',
-        document: '/pages/_offlinetsx',
+        document: '/pages/_offline.tsx',
       },
     });
-    return withPWA(nextConfig);
+    return withPWA({ ...nextConfig, exportPathMap });
   }
-  return nextConfig;
+  return { ...nextConfig, exportPathMap };
 };
 
 export default nextConfigFunction;

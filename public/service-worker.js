@@ -3,7 +3,8 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
-  // Adicione outros recursos estáticos aqui
+  '/login',
+  'atendiemnto'
 ];
 
 self.addEventListener('install', (event) => {
