@@ -1,3 +1,18 @@
+// pages/user.js ou pages/user.tsx
+import React from 'react';
+
+const UserPage = () => {
+  return (
+    <div>
+      {/* Conteúdo da página do usuário */}
+    </div>
+  );
+};
+
+export default UserPage;
+
+
+
 // import { useState, useEffect } from 'react';
 
 // export default function Home({ initialUsers }) {
