@@ -1,5 +1,5 @@
-import { ArrowRightOutlined, IdcardOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Tooltip } from "antd";
+import {  IdcardOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Form, Tooltip } from "antd";
 import InputMask from "react-input-mask";
 
 export default function SectionsBuscarCpf() {

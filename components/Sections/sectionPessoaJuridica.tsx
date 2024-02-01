@@ -1,15 +1,12 @@
-import { Button, Checkbox, CheckboxProps, DatePicker, Form, Input, InputNumber, Select, SelectProps } from "antd";
+import { Button, DatePicker, Form, Input, InputNumber, Select, SelectProps } from "antd";
 import dayjs from "dayjs";
-import { ArrowRightOutlined, GiftFilled, IdcardOutlined, InfoCircleOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
+import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { RequiredMark } from "antd/es/form/Form";
 
 export default function SectionPessoaJuridica() {
     const [form] = Form.useForm();
-    const [estudante, setEstudante] = useState(false);
-    const [produtorRural, setProdutorRural] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [requiredMark, setRequiredMarkType] = useState<RequiredMark>('optional');
+    const [, setRequiredMarkType] = useState<RequiredMark>('optional');
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
 
     const options: SelectProps['options'] = [];
@@ -28,21 +25,9 @@ export default function SectionPessoaJuridica() {
     const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
         setRequiredMarkType(requiredMarkValue);
     };
-
-    const toggleEstudante = () => {
-        setEstudante(!estudante);
-    };
-    const toggleProdutorRural = () => {
-        setProdutorRural(!produtorRural);
-    };
-
-    const onChange: CheckboxProps['onChange'] = (e) => {
-        console.log('checked = ', e.target.checked);
-        setEstudante(e.target.checked);
-    };
     return (
         <section className="w-svw flex flex-col items-center justify-start h-full">
-            <header className="w-full pt-10 px-10  ">
+            <header className="w-full px-10  ">
                 <h1 className=" text-azulSebrae font-bold ">Dados do CNPJ Vinculado</h1>
             </header>
             <Form
@@ -72,7 +57,7 @@ export default function SectionPessoaJuridica() {
                     <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite a Razão Social" />
                 </Form.Item>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2  gap-x-4 ">
                     <Form.Item
                         name="cnpj"
                         label={
@@ -162,45 +147,40 @@ export default function SectionPessoaJuridica() {
                         }>
                         <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite a Natureza da Empresa" />
                     </Form.Item>
+                    <Form.Item
+                        name="atividadeEconomica"
+                        required
+                        label={
+                            <div className="text-azulSebrae gap-1 flex">
+                                <span>Atividade Econômica</span>
+                            </div>
+                        }>
+                        <Select
+                            mode="multiple"
+                            className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
+                            defaultValue={['teste01']}
+                            placeholder="Digite as atividades Econômicas"
+                            style={{ flex: 1 }}
+                            options={[
+                                { value: 'teste01', label: 'teste01' },
+                                { value: 'teste02', label: 'teste02' },
+                                { value: 'teste03', label: 'teste03' },
+                            ]}
+                        />
+                    </Form.Item>
 
                 </div>
-                <Form.Item
-                    name="naturezaJuridica"
-                    required
-                    label={
-                        <div className="text-azulSebrae gap-1 flex">
-                            <span>Atividade Econômica</span>
-                        </div>
-                    }>
-                    <Select
-                        mode="multiple"
-                        className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
-                        defaultValue={['teste01']}
-                        placeholder="Outlined"
-                        style={{ flex: 1 }}
-                        options={[
-                            { value: 'teste01', label: 'teste01' },
-                            { value: 'teste02', label: 'teste02' },
-                            { value: 'teste03', label: 'teste03' },
-                        ]}
-                    />
-                </Form.Item>
-                <div className="flex flex-row items-center gap-4">
-                    <div>
-                        <Checkbox style={{ display: "none" }} className=" flex-none " checked={estudante} disabled={disabled} onChange={onChange} />
-                        <Button className={estudante ? "bg-azulSebrae  text-white " : "bg-white text-azulSebrae"} onClick={toggleEstudante}>
-                            Sou Estudante
-                        </Button>
-                    </div>
-                    <div>
-                        <Checkbox style={{ display: "none" }} className=" flex-none " checked={produtorRural} disabled={disabled} onChange={onChange} />
-                        <Button className={produtorRural ? "bg-azulSebrae  text-white " : "bg-white text-azulSebrae"} onClick={toggleProdutorRural}>
-                            Sou Produtor Rural
-                        </Button>
-                    </div>
+                <div className="w-full flex flex-row justify-between items-center  ">
+                    <Button className="bg-azulSebrae text-white flex flex-row items-center h-10 font-bold">
+                    <DoubleLeftOutlined />
+                        Pessoa Fisica
+                    </Button>
 
+                    <Button className="bg-green text-white flex flex-row items-center h-10 font-bold">
+                        Salvar e Proceguir 
+                        <DoubleRightOutlined />
+                    </Button>
                 </div>
-               
 
             </Form>
         </section>

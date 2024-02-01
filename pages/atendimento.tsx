@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import SectionsBuscarCpf from "../components/Sections/sectionsBuscarCpf";
 import SectionPessoaFisica from "../components/Sections/sectionPessoaFisica";
 import SectionPessoaJuridica from "../components/Sections/sectionPessoaJuridica";
+import SectionContatosEnderecos from "../components/Sections/sectionContatosEnderecos";
 const sectionVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
@@ -30,7 +31,7 @@ export default function Atendimento() {
           <Progress percent={0} showInfo={false} />
         </div>
         <div className="w-4/12 p-2">
-          <div className="flex flex-row gap-2 items-center">
+          <div onClick={() => setActiveSection("SectionContatosEnderecos")} className="flex flex-row gap-2 items-center">
             <Progress size={[30, 10]} type="circle" percent={0} />
             Contatos e endereços
           </div>
@@ -76,6 +77,17 @@ export default function Atendimento() {
             transition={{ duration: 0.5 }}
           >
             <SectionPessoaJuridica />
+          </motion.div>
+        )}
+         {activeSection === "SectionContatosEnderecos" && (
+          <motion.div
+            key="SectionContatosEnderecos"
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5 }}
+          >
+            <SectionContatosEnderecos />
           </motion.div>
         )}
       </div>
