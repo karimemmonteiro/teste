@@ -10,5 +10,32 @@ const withPWA = require('next-pwa')({
 })
 
 module.exports = withPWA({
-  // next.js config
+  pwa: {
+    dest: 'public',
+    workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: /^https?.*/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'offlineCache',
+            expiration: {
+              maxEntries: 200,
+            },
+          },
+        },
+        {
+          urlPattern: /^\/(login|atendimento)/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'pages',
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+        // ...outros padrões de caching
+      ],
+    },
+  },
 })
