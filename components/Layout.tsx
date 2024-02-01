@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from "react";
+import { useRouter } from 'next/router';
 import Link from "next/link";
 import Head from "next/head";
 import Login from "../pages/login";
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const Layout = ({ children, title = "This is the default title" }: Props) => {
+  const router = useRouter();
+
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
@@ -19,6 +22,17 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
         .catch((error) => {
           console.error('Erro ao registrar o Service Worker:', error);
         });
+    }
+  }, []);
+
+
+  useEffect(() => {
+    // Simule a verificação de autenticação, por exemplo, verificar se o usuário está autenticado
+    const isAuthenticated = /* lógica de autenticação aqui */ false;
+
+    if (!isAuthenticated) {
+      // Redirecione para a página de login se o usuário não estiver autenticado
+      router.push('/');
     }
   }, []);
 

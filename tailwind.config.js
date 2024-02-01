@@ -19,7 +19,8 @@ module.exports = {
       'textAzulSebrae': '#084298',
       'red': 'red',
       'redEscuro': '#b91c1c',
-      'green': 'green'
+      'green': 'green',
+      'transparent': 'transparent'
     },
     borderWidth: {
       DEFAULT: '0.5px',

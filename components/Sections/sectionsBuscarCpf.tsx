@@ -1,5 +1,6 @@
 import { ArrowRightOutlined, IdcardOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Tooltip } from "antd";
+import InputMask from "react-input-mask";
 
 export default function SectionsBuscarCpf() {
     type FieldType = {
@@ -25,16 +26,22 @@ export default function SectionsBuscarCpf() {
                 autoComplete="off"
             >
                 <div className="w-full">
-                    <Form.Item<FieldType >
-                        name="cpf"
-                        rules={[{ required: true, message: 'Por favor insira o CPF!' }]}
-                    >
-                        <Input className="h-16 rounded text-2xl hover:border-azulSebrae focus:border-azulSebrae" placeholder="CPF" suffix={
-                            <Tooltip title="Digite o CPF da pessoa que deseja fazer o atendimento">
-                                <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: "2rem" }} />
-                            </Tooltip>
-                        } />
-                    </Form.Item>
+                <Form.Item
+                            name="cpf"
+                            rules={[{ required: true, message: 'Obrigatorio digitar o CPF!' }]}
+                        >
+                            <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
+                                <InputMask
+                                    mask="999.999.999-99"
+                                    maskChar={null}
+                                    className="w-full h-16 rounded text-2xl bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
+                                    placeholder="CPF"
+                                />
+                                <Tooltip title="Extra information">
+                                    <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: '2rem' }} />
+                                </Tooltip> 
+                            </div>
+                        </Form.Item>
                 </div>
                 <div>
                     <Form.Item >

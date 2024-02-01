@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionsBuscarCpf from "../components/Sections/sectionsBuscarCpf";
 import SectionPessoaFisica from "../components/Sections/sectionPessoaFisica";
+import SectionPessoaJuridica from "../components/Sections/sectionPessoaJuridica";
 const sectionVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
@@ -22,7 +23,7 @@ export default function Atendimento() {
           <Progress percent={100} showInfo={false} />
         </div>
         <div className="w-4/12 p-2">
-          <div className="flex flex-row gap-2 items-center">
+          <div onClick={() => setActiveSection("SectionPessoaJuridica")} className="flex flex-row gap-2 items-center">
             <Progress size={[30, 10]} type="circle" percent={0} />
             Pessoa Juridica
           </div>
@@ -64,6 +65,17 @@ export default function Atendimento() {
             transition={{ duration: 0.5 }}
           >
             <SectionPessoaFisica />
+          </motion.div>
+        )}
+         {activeSection === "SectionPessoaJuridica" && (
+          <motion.div
+            key="SectionPessoaJuridica"
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5 }}
+          >
+            <SectionPessoaJuridica />
           </motion.div>
         )}
       </div>

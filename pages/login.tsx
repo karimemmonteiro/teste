@@ -1,22 +1,39 @@
 import { ArrowRightOutlined, IdcardOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Tooltip } from "antd";
+import { Button, Form, Input, Tooltip, message } from "antd";
+import { useRef } from "react";
+import InputMask from "react-input-mask";
 
 export default function () {
+    const [messageApi, contextHolder] = message.useMessage();
 
     type FieldType = {
         cpf: string;
         password?: string;
     };
 
+    function error() {
+        messageApi.open({
+            type: 'error',
+            content: 'Usuario nao encontrado',
+        });
+    };
+
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        if (values.cpf === "014.246.572-02" && values.password === "123456") {
+            window.location.href = "/atendimento";
+        } else {
+            error()
+        }
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
+
     return (
         <div className="flex flex-row justify-between ">
+            {contextHolder}
             <div className="bg-azulSebrae h-svh w-3/12 flex flex-row items-center p-5">
                 <img className="text-white" src="./sebraeLogin2.png" alt="Sebrae Login" />
             </div>
@@ -35,35 +52,40 @@ export default function () {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
-                        <Form.Item<FieldType>
+                        <Form.Item
                             name="cpf"
-                            rules={[{ required: true, message: 'Please input your username!' }]}
+                            rules={[{ required: true, message: 'Obrigatorio digitar o CPF!' }]}
                         >
-                            <Input className="h-16 rounded text-2xl hover:border-azulSebrae focus:border-azulSebrae " placeholder="CPF" suffix={
+                            <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
+                                <InputMask
+                                    mask="999.999.999-99"
+                                    maskChar={null}
+                                    className="w-full h-16 rounded text-2xl bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
+                                    placeholder="CPF"
+                                />
                                 <Tooltip title="Extra information">
-                                    <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: "2rem" }} />
-                                </Tooltip>
-                            } />
+                                    <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: '2rem' }} />
+                                </Tooltip> 
+                            </div>
                         </Form.Item>
 
                         <Form.Item<FieldType>
                             name="password"
-                            rules={[{ required: true, message: 'Please input your password!' }]}
+                            rules={[{ required: true, message: 'Obrigatorio digitar a Senha!' }]}
                         >
-                            <Input.Password className="h-16 rounded text-2xl hover:border-azulSebrae focus:border-azulSebrae"  placeholder="Digite Sua Senha" />
+                            <Input.Password className="h-16 rounded text-2xl hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite Sua Senha" />
                         </Form.Item>
 
                         <div className="flex flex-row justify-center">
-                        <Form.Item >
-                            <Button className="bg-azulSebrae  rounded h-16 text-2xl flex flex-row items-center gap-2 w-36 " type="primary" htmlType="submit">
-                                Buscar <ArrowRightOutlined />
-                            </Button>
-                        </Form.Item>
+                            <Form.Item>
+                                <Button className="bg-azulSebrae  rounded h-16 text-2xl flex flex-row items-center gap-2 w-36 " type="primary" htmlType="submit">
+                                    Buscar <ArrowRightOutlined />
+                                </Button>
+                            </Form.Item>
                         </div>
                     </Form>
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
