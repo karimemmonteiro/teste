@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
+import Login from "../pages/login";
 
 type Props = {
   children?: ReactNode;
@@ -67,17 +68,14 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
 
       </Head>
       <header>
-        <nav>
+        {/* <nav>
           <Link href="/">Home</Link> | <Link href="/about">About</Link> |{" "}
           <Link href="/login">login</Link> |{" "}
           <Link href="/atendimento">atendimento</Link> |{" "}
-        </nav>
+        </nav> */}
+        <Login/>
       </header>
       {children}
-      <footer>
-        <hr />
-        <span>I'm here to stay (Footer)</span>
-      </footer>
     </div>
   );
 };
