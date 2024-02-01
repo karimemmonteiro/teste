@@ -1,15 +1,11 @@
 // next.config.js
-const withOffline = require('next-offline');
 const withPWA = require('next-pwa');
+const withOffline = require('next-offline');
 
 module.exports = withOffline(
   withPWA({
-    // Suas outras configurações aqui
-
-    // Configuração do next-offline
-    generateInDevMode: true,
-    workboxOpts: {
-      swDest: 'static/service-worker.js',
+    pwa: {
+      dest: 'public', // Este é o diretório onde os arquivos do Service Worker serão colocados
       runtimeCaching: [
         {
           urlPattern: /^https?.*/,
@@ -23,10 +19,6 @@ module.exports = withOffline(
         },
       ],
     },
-
-    // Configuração do next-pwa
-    pwa: {
-      dest: 'public',
-    },
+    // outras configurações...
   })
 );
