@@ -200,10 +200,7 @@ export default function SectionPessoaJuridica() {
                     </div>
 
                 </div>
-                <div className="w-full flex flex-row justify-end fixed bottom-0 right-0 p-10 gap-4">
-                    <Button className=" bg-redEscuro text-white h-11 flex flex-row items-center hover:text-cinzaSebrae">Cancelar</Button>
-
-                </div>
+               
 
             </Form>
         </section>
