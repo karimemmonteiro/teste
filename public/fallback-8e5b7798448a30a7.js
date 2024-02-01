@@ -1,1 +1,0 @@
-self.fallback=async e=>{let{destination:n,url:a}=e,o={document:"/pages/_offline.tsx",image:"/offline.png",audio:!1,video:!1,font:!1}[n];return o?caches.match(o,{ignoreSearch:!0}):Response.error()};
