@@ -89,7 +89,7 @@ export default function SectionPessoaJuridica() {
                         }
                         required
                     >
-                        <DatePicker className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" defaultValue={dayjs('21/05/1994', dateFormatList[0])} format={dateFormatList} />
+                        <input type="date" className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full"  />
                     </Form.Item>
 
                     <Form.Item

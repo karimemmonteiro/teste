@@ -122,7 +122,7 @@ export default function SectionPessoaFisica() {
                         }
                         required
                     >
-                        <DatePicker onChange={(event) => OnchangeData(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" defaultValue={dayjs('21/05/1994', dateFormatList[0])} format={dateFormatList} />
+                        <input type="date" onChange={(event) => OnchangeData(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full"  />
                     </Form.Item>
 
                     <Form.Item
