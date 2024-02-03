@@ -1,14 +1,20 @@
-import {  IdcardOutlined, SearchOutlined } from "@ant-design/icons";
+import { IdcardOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Form, Tooltip } from "antd";
 import InputMask from "react-input-mask";
+import { useDispatch } from 'react-redux';
+import { setCpf } from '../../Redux/actions/cpfActions';
 
 export default function SectionsBuscarCpf() {
     type FieldType = {
         cpf: string;
     };
+    const dispatch = useDispatch();
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
+
+        // Dispatch the action to update the CPF in the Redux store
+        dispatch(setCpf(values.cpf, 1));
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -26,22 +32,22 @@ export default function SectionsBuscarCpf() {
                 autoComplete="off"
             >
                 <div className="w-full">
-                <Form.Item
-                            name="cpf"
-                            rules={[{ required: true, message: 'Obrigatorio digitar o CPF!' }]}
-                        >
-                            <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
-                                <InputMask
-                                    mask="999.999.999-99"
-                                    maskChar={null}
-                                    className="w-full h-16 rounded text-2xl bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
-                                    placeholder="CPF"
-                                />
-                                <Tooltip title="Extra information">
-                                    <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: '2rem' }} />
-                                </Tooltip> 
-                            </div>
-                        </Form.Item>
+                    <Form.Item
+                        name="cpf"
+                        rules={[{ required: true, message: 'Obrigatorio digitar o CPF!' }]}
+                    >
+                        <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
+                            <InputMask
+                                mask="999.999.999-99"
+                                maskChar={null}
+                                className="w-full h-16 rounded text-2xl bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
+                                placeholder="CPF"
+                            />
+                            <Tooltip title="Extra information">
+                                <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: '2rem' }} />
+                            </Tooltip>
+                        </div>
+                    </Form.Item>
                 </div>
                 <div>
                     <Form.Item >

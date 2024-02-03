@@ -27,11 +27,9 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
 
 
   useEffect(() => {
-    // Simule a verificação de autenticação, por exemplo, verificar se o usuário está autenticado
-    const isAuthenticated = /* lógica de autenticação aqui */ false;
+    const isAuthenticated = false;
 
     if (!isAuthenticated) {
-      // Redirecione para a página de login se o usuário não estiver autenticado
       router.push('/');
     }
   }, []);
@@ -82,11 +80,6 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
 
       </Head>
       <header>
-        {/* <nav>
-          <Link href="/">Home</Link> | <Link href="/about">About</Link> |{" "}
-          <Link href="/login">login</Link> |{" "}
-          <Link href="/atendimento">atendimento</Link> |{" "}
-        </nav> */}
         <Login/>
       </header>
       {children}

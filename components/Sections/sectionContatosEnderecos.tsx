@@ -59,7 +59,7 @@ export default function SectionContatosEnderecos() {
                                 mask="(99)99999-9999"
                                 maskChar={null}
                                 className="w-full h-10 rounded text-lg bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
-                                placeholder="Digite o telefone"
+                                placeholder="Digite o Telefone"
                             />
                         </div>
                     </Form.Item>

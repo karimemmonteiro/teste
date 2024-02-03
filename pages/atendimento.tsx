@@ -1,96 +1,93 @@
-import { Progress } from "antd";
+
+import React, { useEffect } from 'react';
+import { Button, Steps, message, theme } from "antd";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import SectionsBuscarCpf from "../components/Sections/sectionsBuscarCpf";
 import SectionPessoaFisica from "../components/Sections/sectionPessoaFisica";
 import SectionPessoaJuridica from "../components/Sections/sectionPessoaJuridica";
 import SectionContatosEnderecos from "../components/Sections/sectionContatosEnderecos";
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
+import SectionAtendimento from "../components/Sections/sectionAtendimento";
+import { FieldTimeOutlined, FileTextFilled, IdcardFilled, InfoCircleFilled } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
-export default function Atendimento() {
-  const [activeSection, setActiveSection] = useState("SectionsBuscarCpf");
+const steps = [
+  {
+    title: 'Buscar CPF',
+    content: <SectionsBuscarCpf />,
+  },
+  {
+    title: 'Pessoa Fisica',
+    content: <SectionPessoaFisica />,
+  },
+  {
+    title: 'Pessoa Jurídica',
+    content: <SectionPessoaJuridica />,
+  },
+  {
+    title: 'Contatos e Endereços',
+    content: <SectionContatosEnderecos />,
+  },
+  {
+    title: 'Atendimento',
+    content: <SectionAtendimento />,
+  },
+];
+
+export default function Atendimento2() {
+  const { token } = theme.useToken();
+  const [current, setCurrent] = useState(0);
+  const storedCpf = useSelector((state: any) => state.cpf);
+  const dadosPessoaFisica = useSelector((state: any)=> state.dadosPessoaFisica)
+
+  const next = () => {
+    setCurrent(current + 1);
+  };
+
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
+  const items = steps.map((item) => ({ key: item.title, title: item.title }));
+
+  const contentStyle: React.CSSProperties = {
+    width: "100%",
+    height: "80svh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  };
+  useEffect(() => {
+    console.log("teste cpf reduz", storedCpf)
+    if (storedCpf !== "" && current === 0){
+      setCurrent(storedCpf.step);
+    }
+  },[storedCpf])
+
 
   return (
-    <div>
-      <header className="w-12/12 border-b border-neutralSebrae flex flex-row justify-between">
-        <div className="w-4/12 p-2">
-          <div onClick={() => setActiveSection("SectionPessoaFisica")} className="flex flex-row gap-2 items-center text-textAzulSebrae font-bold">
-            <Progress size={[30, 10]} type="circle" percent={100} />
-            Pessoa fisica
-          </div>
-          <Progress percent={100} showInfo={false} />
-        </div>
-        <div className="w-4/12 p-2">
-          <div onClick={() => setActiveSection("SectionPessoaJuridica")} className="flex flex-row gap-2 items-center">
-            <Progress size={[30, 10]} type="circle" percent={0} />
-            Pessoa Juridica
-          </div>
-          <Progress percent={0} showInfo={false} />
-        </div>
-        <div className="w-4/12 p-2">
-          <div onClick={() => setActiveSection("SectionContatosEnderecos")} className="flex flex-row gap-2 items-center">
-            <Progress size={[30, 10]} type="circle" percent={0} />
-            Contatos e endereços
-          </div>
-          <Progress percent={0} showInfo={false} />
-        </div>
-        <div className="w-4/12 p-2">
-          <div className="flex flex-row gap-2 items-center">
-            <Progress size={[30, 10]} type="circle" percent={0} />
-            Atendimento
-          </div>
-          <Progress percent={0} showInfo={false} />
-        </div>
-      </header>
-      <div className="flex flex-row w-full justify-center items-center h-[48rem] ">
-        {activeSection === "SectionsBuscarCpf" && (
-          <motion.div
-            key="SectionsBuscarCpf"
-            variants={sectionVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.5 }}
-          >
-            <SectionsBuscarCpf />
-          </motion.div>
+    <div className="px-5 py-5 overflow-y-hidden overflow-x-hidden over">
+      <Steps current={current} items={items} />
+      <div className="w-full flex flex-row justify-between items-center py-5">
+        {current > 0 && (
+
+          <Button className="bg-azulSebrae text-white" onClick={() => prev()}>
+            Voltar
+          </Button>
         )}
-        {activeSection === "SectionPessoaFisica" && (
-          <motion.div
-            key="SectionPessoaFisica"
-            variants={sectionVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.5 }}
-          >
-            <SectionPessoaFisica />
-          </motion.div>
+        {current === steps.length - 1 && (
+          <Button type="primary" onClick={() => message.success('Processing complete!')}>
+            Salvar
+          </Button>
         )}
-         {activeSection === "SectionPessoaJuridica" && (
-          <motion.div
-            key="SectionPessoaJuridica"
-            variants={sectionVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.5 }}
-          >
-            <SectionPessoaJuridica />
-          </motion.div>
+        {current > 1 - 1 && (
+          <Button className="bg-azulSebrae text-white" onClick={() => next()}>
+            Proxima
+          </Button>
         )}
-         {activeSection === "SectionContatosEnderecos" && (
-          <motion.div
-            key="SectionContatosEnderecos"
-            variants={sectionVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.5 }}
-          >
-            <SectionContatosEnderecos />
-          </motion.div>
-        )}
+
       </div>
+      <div style={contentStyle}>{steps[current].content}</div>
     </div>
   );
 };

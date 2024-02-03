@@ -1,3 +1,4 @@
+//@type {import('next').NextConfig}
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: false,
@@ -6,10 +7,10 @@ const withPWA = require('next-pwa')({
   sw: 'service-worker.js',
   dynamicStartUrl: true,
   cacheStartUrl:true,
-  //...
 })
 
 module.exports = withPWA({
+  // output: 'export',
   pwa: {
     dest: 'public',
     workbox: {

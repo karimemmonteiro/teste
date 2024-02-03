@@ -1,28 +1,22 @@
-import { ArrowRightOutlined, GiftFilled, IdcardOutlined, InfoCircleOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
+import { GiftFilled, IdcardOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, CheckboxProps, DatePicker, Form, Input, Tag } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 import ModalPoliticaPrivacidade from "../Modais/modalTermos";
+import { useDispatch } from "react-redux";
+import { updatePessoaFisica } from "../../Redux/actions/dadosPessoaFisica";
 
-type RequiredMark = boolean | 'optional' | 'customize';
-const customizeRequiredMark = (label: React.ReactNode, { required }: { required: boolean }) => (
-    <>
-        {required ? <Tag color="error">Required</Tag> : <Tag color="warning">optional</Tag>}
-        {label}
-    </>
-);
 export default function SectionPessoaFisica() {
-    const [form] = Form.useForm();
+    const dispatch = useDispatch();
+    const [nome, setNome] = useState("")
+    const [telefone, setTelefone] = useState("")
+    const [email, setEmail] = useState("")
+    const [dataNacimento, setData] = useState("")
     const [estudante, setEstudante] = useState(false);
     const [produtorRural, setProdutorRural] = useState(false);
     const [disabled, setDisabled] = useState(false);
-    const [requiredMark, setRequiredMarkType] = useState<RequiredMark>('optional');
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
-
-    const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
-        setRequiredMarkType(requiredMarkValue);
-    };
-
+    const verificacaoFormulario = nome && telefone && email
 
 
     const toggleEstudante = () => {
@@ -32,26 +26,62 @@ export default function SectionPessoaFisica() {
         setProdutorRural(!produtorRural);
     };
 
+    function OnchangeName(event) {
+        setNome(event.target.value)
+    }
+    function OnchangeTelefone(event) {
+        setTelefone(event.target.value)
+    }
+
+    function OnchangeEmail(event) {
+        setEmail(event.target.value)
+    }
+    function OnchangeData(event) {
+        console.log("data", event.$d)
+        // setData(event.target.value)
+    }
+
     const onChange: CheckboxProps['onChange'] = (e) => {
         console.log('checked = ', e.target.checked);
         setEstudante(e.target.checked);
     };
+
+    const onFinish = (values: any) => {
+        const data = {
+            pfCpf: "01424657202",
+            pfNome: nome,
+            pfDataNascimento: dataNacimento,
+            pfTelefone: telefone,
+            pfEmail: email,
+            pfAceiteTermo: false,
+            pfEstudante: estudante,
+            pfProdutorRural: produtorRural
+        }
+        dispatch(updatePessoaFisica(
+            data
+        ));
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
     return (
         <section className="w-svw flex flex-row items-start h-full">
             <Form
-                form={form}
+                name="formularioDadosPessoaFisica"
                 layout="vertical"
-                className=" w-svw  p-10 justify-start flex flex-col "
+                className="w-full gap-4 px-10"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
                 initialValues={
                     {
                         cpf: "014.246.572-02",
-                        nome: "Karimem Monteiro Cavalcante",
-                        dataDeNascimento: "21/05/1994",
-                        telefone: "92982540365",
-                        email: "contatokarimem@gmail.com"
+                        nome: "",
+                        telefone: "",
+                        email: "",
+                        nascimento: ""
                     }}
-                onValuesChange={onRequiredTypeChange}
-                requiredMark={requiredMark === 'customize' ? customizeRequiredMark : requiredMark}
             >
                 <Form.Item
                     label={
@@ -78,7 +108,7 @@ export default function SectionPessoaFisica() {
                             </div>
                         }
                         required>
-                        <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite nome completo" />
+                        <Input onChange={(event) => OnchangeName(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite nome completo" />
                     </Form.Item>
 
                     <Form.Item
@@ -92,7 +122,7 @@ export default function SectionPessoaFisica() {
                         }
                         required
                     >
-                        <DatePicker className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" defaultValue={dayjs('21/05/1994', dateFormatList[0])} format={dateFormatList} />
+                        <DatePicker onChange={(event) => OnchangeData(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" defaultValue={dayjs('21/05/1994', dateFormatList[0])} format={dateFormatList} />
                     </Form.Item>
 
                     <Form.Item
@@ -103,7 +133,7 @@ export default function SectionPessoaFisica() {
                                 <span>Telefone</span>
                             </div>
                         }>
-                        <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite nome completo" />
+                        <Input onChange={(event) => OnchangeTelefone(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite o Telefone" />
                     </Form.Item>
 
                     <Form.Item
@@ -115,11 +145,12 @@ export default function SectionPessoaFisica() {
                             </div>
                         }
                     >
-                        <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite nome completo" />
+                        <Input onChange={(event) => OnchangeEmail(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite o Email" />
                     </Form.Item>
                 </div>
                 <div className="flex flex-row items-center gap-4">
                     <div>
+
                         <Checkbox style={{ display: "none" }} className=" flex-none " checked={estudante} disabled={disabled} onChange={onChange} />
                         <Button className={estudante ? "bg-azulSebrae  text-white " : "bg-white text-azulSebrae"} onClick={toggleEstudante}>
                             Sou Estudante
@@ -133,10 +164,11 @@ export default function SectionPessoaFisica() {
                     </div>
 
                 </div>
-                <div className="w-full flex flex-row justify-end fixed bottom-0 right-0 p-10 gap-4">
-                    <Button className=" bg-redEscuro text-white h-11 flex flex-row items-center hover:text-cinzaSebrae">Cancelar</Button>
+                <div className={verificacaoFormulario ? "w-full flex flex-row justify-end fixed bottom-0 right-0 p-10 gap-4" : " invisible"}>
                     <Form.Item>
-                        <ModalPoliticaPrivacidade/>
+                        <div onClick={onFinish}>
+                            <ModalPoliticaPrivacidade />
+                        </div>
                     </Form.Item>
                 </div>
 

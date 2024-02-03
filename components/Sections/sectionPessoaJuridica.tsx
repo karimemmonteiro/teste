@@ -170,7 +170,7 @@ export default function SectionPessoaJuridica() {
                     </Form.Item>
 
                 </div>
-                <div className="w-full flex flex-row justify-between items-center  ">
+                {/* <div className="w-full flex flex-row justify-between items-center  ">
                     <Button className="bg-azulSebrae text-white flex flex-row items-center h-10 font-bold">
                     <DoubleLeftOutlined />
                         Pessoa Fisica
@@ -180,7 +180,7 @@ export default function SectionPessoaJuridica() {
                         Salvar e Proceguir 
                         <DoubleRightOutlined />
                     </Button>
-                </div>
+                </div> */}
 
             </Form>
         </section>
