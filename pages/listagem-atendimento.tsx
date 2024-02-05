@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { SearchOutlined,DeleteOutlined,EyeOutlined, ExclamationCircleOutlined,PlusSquareOutlined,EditOutlined, IssuesCloseOutlined } from '@ant-design/icons';
+import { SearchOutlined, DeleteOutlined, EyeOutlined, ExclamationCircleOutlined, PlusSquareOutlined, EditOutlined, IssuesCloseOutlined } from '@ant-design/icons';
 import type { GetRef, TableColumnsType, TableColumnType } from 'antd';
-import { Button, Input, Space, Table } from 'antd';
+import { Button, Input, Space, Table, notification } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import Sidebar from '../components/SideBar';
 // import Highlighter from 'react-highlight-words';
 
 type InputRef = GetRef<typeof Input>;
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
 interface DataType {
   id: string;
@@ -27,7 +28,7 @@ const data: DataType[] = [
     id: '1',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -38,7 +39,7 @@ const data: DataType[] = [
     id: '2',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -49,7 +50,7 @@ const data: DataType[] = [
     id: '3',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -60,7 +61,7 @@ const data: DataType[] = [
     id: '4',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -71,7 +72,7 @@ const data: DataType[] = [
     id: '5',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -82,7 +83,7 @@ const data: DataType[] = [
     id: '6',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -93,7 +94,7 @@ const data: DataType[] = [
     id: '7',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -104,7 +105,7 @@ const data: DataType[] = [
     id: '8',
     name: 'Karimem Monteiro Cavalcante',
     porte: "Micro empreendedor individual",
-    data:"31/07/2023",
+    data: "31/07/2023",
     dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
     categoria: "Consultoria	",
     duracao: "01:12:49",
@@ -116,6 +117,15 @@ export default function ListaAtendimentos() {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
+  const [api, contextHolder] = notification.useNotification();
+
+  function openNotificationWithIcon(type: NotificationType) {
+    api[type]({
+      message: 'Error de alguma',
+      description:
+        'Error de algum documento',
+    });
+  };
 
   const handleSearch = (
     selectedKeys: string[],
@@ -210,7 +220,7 @@ export default function ListaAtendimentos() {
       ),
   });
 
-  function novoAtendimento(){
+  function novoAtendimento() {
     window.location.href = "/atendimento";
   }
 
@@ -259,33 +269,39 @@ export default function ListaAtendimentos() {
       ...getColumnSearchProps('status'),
       render: (_, { status }) => (
         <>
-        {
-          status ? <h1 className=' text-red font-bold gap-2 text-md'><ExclamationCircleOutlined /> Error</h1> 
-          : <h1 className=' text-orange font-bold gap-2 text-md'><IssuesCloseOutlined /> Pendente</h1>
-        }
+          {
+            status ? <h1 onClick={() => openNotificationWithIcon('error')} className=' border-none text-red font-bold gap-2 text-md cursor-pointer'><ExclamationCircleOutlined /> Error</h1>
+              : <h1 className=' text-orange font-bold gap-2 text-md'><IssuesCloseOutlined /> Pendente</h1>
+          }
         </>
       ),
     },
     {
       title: 'Ação',
-      dataIndex: 'id',
+      dataIndex: 'id, status',
       width: '5%',
       key: 'id',
-      render: (_, { id }) => (
-        <div className='flex flex-row items-center justify-between'>
-        <Button className=' border-none'><EditOutlined /></Button>
-        <Button className=' border-none'><DeleteOutlined /></Button>
-        <Button className=' border-none'><EyeOutlined /></Button>
+      render: (_, { id, status }) => (
+        <div className='flex flex-row items-center justify-start'>
+          <Button className=' border-none text-red '><DeleteOutlined /></Button>
+          <Button className=' border-none'><EyeOutlined /></Button>
+          {
+            status ?
+              <Button className=' border-none flex flex-row items-center'><EditOutlined /></Button>
+              : null
+          }
+
         </div>
       ),
     },
   ];
   return (
     <div>
+      {contextHolder}
       <header className='flex flex-col '>
         <Sidebar />
         <div className='w-full flex flex-row justify-end px-10 py-5'>
-          <Button onClick={()=> novoAtendimento()} className='flex flex-row items-center'><PlusSquareOutlined /> Adicionar</Button>
+          <Button onClick={() => novoAtendimento()} className=' h-10 flex flex-row items-center bg-azulSebrae text-white'><PlusSquareOutlined /> Novo Atendimento</Button>
         </div>
       </header>
       <main>
