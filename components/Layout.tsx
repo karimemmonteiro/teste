@@ -16,7 +16,6 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
   const storedStep = useSelector((state: any) => state.step);
 
   useEffect(() => {
-    console.log("teste dados de login=========", dadosLogin)
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/service-worker.js')
@@ -31,7 +30,6 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
 
 
   useEffect(() => {
-    console.log("teste dados de login=========", dadosLogin)
     const isAuthenticated = false;
 
     if (!isAuthenticated) {

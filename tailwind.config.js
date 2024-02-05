@@ -20,7 +20,8 @@ module.exports = {
       'red': 'red',
       'redEscuro': '#b91c1c',
       'green': 'green',
-      'transparent': 'transparent'
+      'transparent': 'transparent',
+      'orange': 'orange'
     },
     borderWidth: {
       DEFAULT: '0.5px',

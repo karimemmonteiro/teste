@@ -25,34 +25,67 @@ export default function SectionPessoaJuridica() {
     const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
         setRequiredMarkType(requiredMarkValue);
     };
+
+    const onFinish = (values: any) => {
+        console.log("teste dados pessoa juridica", values)
+        // const data = {
+        //     pfCpf: "01424657202",
+        //     pfNome: nome,
+        //     pfDataNascimento: dataNacimento,
+        //     pfTelefone: telefone,
+        //     pfEmail: email,
+        //     pfAceiteTermo: dadosPessoaFisica.pfAceiteTermo,
+        //     pfEstudante: estudante,
+        //     pfProdutorRural: produtorRural
+        // }
+        // if (dadosPessoaFisica.pfAceiteTermo) {
+        //     console.log("agora sim", data)
+        //     dispatch(updatePessoaFisica(
+        //         data
+        //     ));
+        // }
+
+
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
     return (
         <section className="w-svw flex flex-col items-center justify-start h-full">
             <header className="w-full px-10  ">
                 <h1 className=" text-azulSebrae font-bold ">Dados do CNPJ Vinculado</h1>
             </header>
             <Form
-                form={form}
+                name="formularioDadosPessoajuridica"
                 layout="vertical"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
                 className=" w-svw  p-10 justify-start flex flex-col "
                 initialValues={
                     {
-                        cpf: "014.246.572-02",
-                        nome: "Karimem Monteiro Cavalcante",
-                        dataDeNascimento: "21/05/1994",
-                        telefone: "92982540365",
-                        email: "contatokarimem@gmail.com"
+                        razaoSocial: "",
+                        cnpj: "",
+                        nomeFantasia: "",
+                        dataCriacao: "",
+                        situação: "",
+                        porte : "",
+                        funcionarios: 0,
+                        natureza: "",
+                        atividade: []
                     }}
                 onValuesChange={onRequiredTypeChange}
             >
                 <Form.Item
+                    name="razaoSocial"
+                    required
                     label={
                         <div className="text-azulSebrae gap-1 flex">
                             <span>Razão Social</span>
-                            <span className="text-red">*</span>
                         </div>
                     }
-                    name="razaoSocial"
-                    required
+
                 >
                     <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite a Razão Social" />
                 </Form.Item>
@@ -89,7 +122,7 @@ export default function SectionPessoaJuridica() {
                         }
                         required
                     >
-                        <DatePicker defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full"  />
+                        <DatePicker defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
 
                     <Form.Item
@@ -170,17 +203,13 @@ export default function SectionPessoaJuridica() {
                     </Form.Item>
 
                 </div>
-                {/* <div className="w-full flex flex-row justify-between items-center  ">
-                    <Button className="bg-azulSebrae text-white flex flex-row items-center h-10 font-bold">
-                    <DoubleLeftOutlined />
-                        Pessoa Fisica
-                    </Button>
+                <div className="w-full flex flex-row justify-end items-center  ">
 
-                    <Button className="bg-green text-white flex flex-row items-center h-10 font-bold">
-                        Salvar e Proceguir 
+                    <Button htmlType="submit" className="bg-green text-white flex flex-row items-center h-10 font-bold">
+                        Salvar e Proceguir
                         <DoubleRightOutlined />
                     </Button>
-                </div> */}
+                </div>
 
             </Form>
         </section>

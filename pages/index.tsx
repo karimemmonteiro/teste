@@ -9,7 +9,6 @@ const IndexPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("teste dados de login=========", dadosLogin);
     const isAuthenticated = true;
 
     if (!isAuthenticated) {

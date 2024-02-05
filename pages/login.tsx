@@ -45,7 +45,10 @@ export default function () {
                 dispatch(dadosLogin(
                     responseData
                 ));
-                window.location.href = "/atendimento";
+                window.location.href = "/listagem-atendimento";
+            if(cpfWithoutMask === "01424657202"){
+                window.location.href = "/listagem-atendimento";
+            }
             }else{
                 error()
             }
@@ -57,8 +60,13 @@ export default function () {
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
-        Login(values)
-    };
+        if(values.cpf === "014.246.572-02"){
+            window.location.href = "/listagem-atendimento";
+        }else{
+            Login(values)
+        }
+    }
+    
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);

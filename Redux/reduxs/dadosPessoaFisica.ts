@@ -1,4 +1,4 @@
-import { UPDATE_PESSOA_FISICA } from '../actions/dadosPessoaFisicaAction';
+import { PESSOA_FISICA } from '../actions/dadosPessoaFisicaAction';
 
 const initialState = {
     pfCpf: '',
@@ -13,7 +13,7 @@ const initialState = {
 
 export const pessoaFisicaReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case UPDATE_PESSOA_FISICA:
+        case PESSOA_FISICA:
             console.log("Ação Despachada:", action);
             return {
                 ...state,

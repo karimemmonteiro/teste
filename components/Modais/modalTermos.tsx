@@ -4,6 +4,7 @@ import { ArrowRightOutlined, RightCircleFilled } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePessoaFisica } from '../../Redux/actions/dadosPessoaFisicaAction';
 import { setCpf } from '../../Redux/actions/cpfActions';
+import { setStep } from '../../Redux/actions/stepAtendimentoAction';
 
 export default function ModalPoliticaPrivacidade() {
     const dispatch = useDispatch();
@@ -31,9 +32,9 @@ export default function ModalPoliticaPrivacidade() {
             pfEstudante: true,
             pfProdutorRural:true
         }
-        console.log("ACEITE", data)
         dispatch(updatePessoaFisica(data));
-        dispatch(setCpf(dadosPessoaFisica.pfCpf, 2));
+        dispatch(setCpf(dadosPessoaFisica.pfCpf));
+        dispatch(setStep(2));
         setOpen(false)
     }
 

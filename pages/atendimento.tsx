@@ -63,13 +63,12 @@ export default function Atendimento2() {
     alignItems: "center"
   };
   useEffect(() => {
-    console.log("teste cpf reduz", storedStep, storedCpf)
+    console.log("teste step", storedStep, "=======", dadosPessoaFisica)
     if(storedCpf !== ""){
       setCurrent(storedStep.step)
     }
   },[storedStep])
 
-  console.log("teste current", current)
 
 
   return (
@@ -87,11 +86,11 @@ export default function Atendimento2() {
             Salvar
           </Button>
         )}
-        {current > 1 - 1 && (
+        {/* {current > 1 - 1 && (
           <Button className="bg-azulSebrae text-white" onClick={() => next()}>
             Proxima
           </Button>
-        )}
+        )} */}
 
       </div>
       <div style={contentStyle}>{steps[current].content}</div>

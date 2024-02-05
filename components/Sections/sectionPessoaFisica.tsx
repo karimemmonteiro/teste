@@ -1,11 +1,12 @@
 import { GiftFilled, IdcardOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, CheckboxProps,  Form, Input, Tag } from "antd";
+import { Button, Checkbox, CheckboxProps, Form, Input, Tag } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 import ModalPoliticaPrivacidade from "../Modais/modalTermos";
 import { useDispatch } from "react-redux";
 import { updatePessoaFisica } from "../../Redux/actions/dadosPessoaFisicaAction";
 import { DatePicker, Space } from 'antd';
+import { useSelector } from "react-redux";
 
 
 
@@ -19,6 +20,7 @@ export default function SectionPessoaFisica() {
     const [estudante, setEstudante] = useState(false);
     const [produtorRural, setProdutorRural] = useState(false);
     const [disabled, setDisabled] = useState(false);
+    const dadosPessoaFisica = useSelector((state: any) => state.dadosPessoaFisica)
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
     const verificacaoFormulario = nome && telefone && email
 
@@ -57,13 +59,18 @@ export default function SectionPessoaFisica() {
             pfDataNascimento: dataNacimento,
             pfTelefone: telefone,
             pfEmail: email,
-            pfAceiteTermo: false,
+            pfAceiteTermo: dadosPessoaFisica.pfAceiteTermo,
             pfEstudante: estudante,
             pfProdutorRural: produtorRural
         }
-        dispatch(updatePessoaFisica(
-            data
-        ));
+        if (dadosPessoaFisica.pfAceiteTermo) {
+            console.log("agora sim", data)
+            dispatch(updatePessoaFisica(
+                data
+            ));
+        }
+
+
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -126,7 +133,7 @@ export default function SectionPessoaFisica() {
                         }
                         required
                     >
-                        <DatePicker onChange={(event) => OnchangeData(event)} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full"  />
+                        <DatePicker onChange={(event) => OnchangeData(event)} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
 
                     <Form.Item

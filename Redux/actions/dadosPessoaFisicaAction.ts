@@ -1,4 +1,4 @@
-export const UPDATE_PESSOA_FISICA = 'UPDATE_PESSOA_FISICA';
+export const PESSOA_FISICA = 'PESSOA_FISICA';
 export const updatePessoaFisica = (data: {
   pfCpf: string;
   pfNome: string;
@@ -9,6 +9,6 @@ export const updatePessoaFisica = (data: {
   pfEstudante: boolean,
   pfProdutorRural: boolean
 }) => ({
-  type: UPDATE_PESSOA_FISICA,
+  type: PESSOA_FISICA,
   payload: data,
 });
