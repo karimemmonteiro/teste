@@ -1,4 +1,4 @@
-import { UPDATE_PESSOA_FISICA } from '../actions/dadosPessoaFisica';
+import { UPDATE_PESSOA_FISICA } from '../actions/dadosPessoaFisicaAction';
 
 const initialState = {
     pfCpf: '',

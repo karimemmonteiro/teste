@@ -1,10 +1,14 @@
 import { GiftFilled, IdcardOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, CheckboxProps, DatePicker, Form, Input, Tag } from "antd";
+import { Button, Checkbox, CheckboxProps,  Form, Input, Tag } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 import ModalPoliticaPrivacidade from "../Modais/modalTermos";
 import { useDispatch } from "react-redux";
-import { updatePessoaFisica } from "../../Redux/actions/dadosPessoaFisica";
+import { updatePessoaFisica } from "../../Redux/actions/dadosPessoaFisicaAction";
+import { DatePicker, Space } from 'antd';
+
+
+
 
 export default function SectionPessoaFisica() {
     const dispatch = useDispatch();
@@ -122,7 +126,7 @@ export default function SectionPessoaFisica() {
                         }
                         required
                     >
-                        <input type="date" onChange={(event) => OnchangeData(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full"  />
+                        <DatePicker onChange={(event) => OnchangeData(event)} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full"  />
                     </Form.Item>
 
                     <Form.Item

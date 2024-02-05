@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, List, Modal, Typography } from 'antd';
 import { ArrowRightOutlined, RightCircleFilled } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePessoaFisica } from '../../Redux/actions/dadosPessoaFisica';
+import { updatePessoaFisica } from '../../Redux/actions/dadosPessoaFisicaAction';
 import { setCpf } from '../../Redux/actions/cpfActions';
 
 export default function ModalPoliticaPrivacidade() {

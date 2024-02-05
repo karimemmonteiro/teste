@@ -45,35 +45,40 @@ export default function SectionContatosEnderecos() {
                     <h1 className=" text-azulSebrae font-bold text-2xl ">Telefone(s) & E-mail(s)</h1>
                 </Divider>
                 <div className="grid grid-cols-2  gap-x-4 ">
-                    <Form.Item
-                        name="telefone"
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Telefone</span>
-                            </div>
-                        }
-                        required>
-                        <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
+                    <div>
+                        <Form.Item
+                            name="telefone"
+                            label={
+                                <div className="text-azulSebrae gap-1 flex">
+                                    <span>Telefone</span>
+                                </div>
+                            }
+                            required>
+                            <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
 
-                            <InputMask
-                                mask="(99)99999-9999"
-                                maskChar={null}
-                                className="w-full h-10 rounded text-lg bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
-                                placeholder="Digite o Telefone"
-                            />
-                        </div>
-                    </Form.Item>
-
-                    <Form.Item
-                        name="email"
-                        required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>E-mail</span>
+                                <InputMask
+                                    mask="(99)99999-9999"
+                                    maskChar={null}
+                                    className="w-full h-10 rounded text-lg bg-violet-500 hover:bg-transparent active:bg-transparent focus:outline-none focus:ring focus:ring-transparent"
+                                    placeholder="Digite o Telefone"
+                                />
                             </div>
-                        }>
-                        <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite um email" />
-                    </Form.Item>
+                        </Form.Item>
+                        <Button>+ Telefone</Button>
+                    </div>
+                    <div>
+                        <Form.Item
+                            name="email"
+                            required
+                            label={
+                                <div className="text-azulSebrae gap-1 flex">
+                                    <span>E-mail</span>
+                                </div>
+                            }>
+                            <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite um email" />
+                        </Form.Item>
+                        <Button>+ Email</Button>
+                    </div>
                 </div>
                 <Divider orientation="left" plain>
                     <h1 className=" text-azulSebrae font-bold text-2xl ">Endereços</h1>
@@ -176,17 +181,7 @@ export default function SectionContatosEnderecos() {
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite um complemento" />
                     </Form.Item>
                 </div>
-                <div className="w-full flex flex-row justify-between items-center  ">
-                    <Button className="bg-azulSebrae text-white flex flex-row items-center h-10 font-bold">
-                        <DoubleLeftOutlined />
-                        Pessoa Juridica
-                    </Button>
-
-                    <Button className="bg-green text-white flex flex-row items-center h-10 font-bold">
-                        Salvar e Proceguir
-                        <DoubleRightOutlined />
-                    </Button>
-                </div>
+                <Button>+ Endereço</Button>
 
             </Form>
         </section>

@@ -2,8 +2,12 @@ import { ArrowRightOutlined, IdcardOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Tooltip, message } from "antd";
 import { useRef } from "react";
 import InputMask from "react-input-mask";
+import apiPss from "../config/connection";
+import { useDispatch } from "react-redux";
+import { dadosLogin } from "../Redux/actions/dadosLoginAction";
 
 export default function () {
+    const dispatch = useDispatch();
     const [messageApi, contextHolder] = message.useMessage();
 
     type FieldType = {
@@ -18,13 +22,42 @@ export default function () {
         });
     };
 
+    function removeNonNumericChars(cpf) {
+        return cpf.replace(/\D/g, '');
+    }
+
+    async function Login(params: FieldType) {
+        const cpfWithoutMask = removeNonNumericChars(params.cpf);
+        console.log("teste params,", cpfWithoutMask)
+        try {
+            const response = await apiPss.post("/Usuarios/Logar", {
+                cpf: cpfWithoutMask,
+                senha: params.password,
+                idSistema: 4,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQW5kcsOpIFVjaMO0YSBNZXNxdWl0YSIsInJvbGUiOiJSZXByZXNlbnRhbnRlIiwibmFtZWlkIjoiMDIxOTU2NzkyMTIiLCJuYmYiOjE2OTg0Mjc0NDcsImV4cCI6MTg1NjI4MDI0NywiaWF0IjoxNjk4NDI3NDQ3fQ.4YTgWe6I_t0dyv86SFLCIS80wgCZeKF4r0UItVla84s',
+                    'Content-Type': 'application/json', 
+                },
+            });
+            const responseData = response.data;
+            if(responseData.statusResponse === 200){
+                dispatch(dadosLogin(
+                    responseData
+                ));
+                window.location.href = "/atendimento";
+            }else{
+                error()
+            }
+           
+        } catch (error) {
+            console.error('Erro ao fazer login:', error.message);
+        }
+    }
+
     const onFinish = (values: any) => {
         console.log('Success:', values);
-        if (values.cpf === "014.246.572-02" && values.password === "123456") {
-            window.location.href = "/atendimento";
-        } else {
-            error()
-        }
+        Login(values)
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -50,7 +83,7 @@ export default function () {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+                        // autoComplete="off"
                     >
                         <Form.Item
                             name="cpf"

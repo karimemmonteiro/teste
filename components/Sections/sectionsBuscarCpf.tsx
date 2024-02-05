@@ -3,6 +3,7 @@ import { Button, Form, Tooltip } from "antd";
 import InputMask from "react-input-mask";
 import { useDispatch } from 'react-redux';
 import { setCpf } from '../../Redux/actions/cpfActions';
+import { setStep } from '../../Redux/actions/stepAtendimentoAction';
 
 export default function SectionsBuscarCpf() {
     type FieldType = {
@@ -14,7 +15,8 @@ export default function SectionsBuscarCpf() {
         console.log('Success:', values);
 
         // Dispatch the action to update the CPF in the Redux store
-        dispatch(setCpf(values.cpf, 1));
+        dispatch(setCpf(values.cpf));
+        dispatch(setStep(1));
     };
 
     const onFinishFailed = (errorInfo: any) => {
