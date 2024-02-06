@@ -3,8 +3,8 @@ export const updatePessoaFisica = (data: {
   pfCpf: string;
   pfNome: string;
   pfDataNascimento: string;
-  pfTelefone: string;
-  pfEmail: string;
+  // pfTelefone: string;
+  // pfEmail: string;
   pfAceiteTermo: boolean,
   pfEstudante: boolean,
   pfProdutorRural: boolean

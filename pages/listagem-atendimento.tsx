@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined, DeleteOutlined, EyeOutlined, ExclamationCircleOutlined, PlusSquareOutlined, EditOutlined, IssuesCloseOutlined } from '@ant-design/icons';
 import type { GetRef, TableColumnsType, TableColumnType } from 'antd';
 import { Button, Input, Space, Table, notification } from 'antd';
@@ -114,6 +114,7 @@ const data: DataType[] = [
   },
 ];
 export default function ListaAtendimentos() {
+  const [online, setOnline] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
@@ -126,6 +127,27 @@ export default function ListaAtendimentos() {
         'Error de algum documento',
     });
   };
+
+  useEffect(() => {
+    // Check if navigator is defined (client-side)
+    if (typeof navigator !== 'undefined') {
+      setOnline(navigator.onLine);
+
+      // Add event listener to update online status
+      const handleOnlineStatusChange = () => {
+        setOnline(navigator.onLine);
+      };
+
+      window.addEventListener('online', handleOnlineStatusChange);
+      window.addEventListener('offline', handleOnlineStatusChange);
+
+      return () => {
+        // Remove event listeners on component unmount
+        window.removeEventListener('online', handleOnlineStatusChange);
+        window.removeEventListener('offline', handleOnlineStatusChange);
+      };
+    }
+  }, []); //
 
   const handleSearch = (
     selectedKeys: string[],
@@ -295,12 +317,15 @@ export default function ListaAtendimentos() {
       ),
     },
   ];
+
+  console.log("teste online", online)
   return (
     <div>
       {contextHolder}
       <header className='flex flex-col '>
         <Sidebar />
         <div className='w-full flex flex-row justify-end px-10 py-5'>
+          <h1>{online}</h1>
           <Button onClick={() => novoAtendimento()} className=' h-10 flex flex-row items-center bg-azulSebrae text-white'><PlusSquareOutlined /> Novo Atendimento</Button>
         </div>
       </header>

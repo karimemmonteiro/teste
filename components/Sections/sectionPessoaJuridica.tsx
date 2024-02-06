@@ -3,9 +3,11 @@ import dayjs from "dayjs";
 import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { RequiredMark } from "antd/es/form/Form";
+import { useDispatch } from "react-redux";
+import { setStep } from "../../Redux/actions/stepAtendimentoAction";
 
 export default function SectionPessoaJuridica() {
-    const [form] = Form.useForm();
+    const dispatch = useDispatch();
     const [, setRequiredMarkType] = useState<RequiredMark>('optional');
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
 
@@ -28,6 +30,7 @@ export default function SectionPessoaJuridica() {
 
     const onFinish = (values: any) => {
         console.log("teste dados pessoa juridica", values)
+        dispatch(setStep(3));
         // const data = {
         //     pfCpf: "01424657202",
         //     pfNome: nome,
@@ -70,7 +73,7 @@ export default function SectionPessoaJuridica() {
                         nomeFantasia: "",
                         dataCriacao: "",
                         situação: "",
-                        porte : "",
+                        porte: "",
                         funcionarios: 0,
                         natureza: "",
                         atividade: []

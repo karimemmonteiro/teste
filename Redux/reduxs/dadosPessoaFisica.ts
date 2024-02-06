@@ -4,8 +4,8 @@ const initialState = {
     pfCpf: '',
     pfNome: '',
     pfDataNascimento: '',
-    pfTelefone: '',
-    pfEmail: '',
+    // pfTelefone: '',
+    // pfEmail: '',
     pfAceiteTermo: false,
     pfEstudante: false,
     pfProdutorRural: false

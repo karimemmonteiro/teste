@@ -14,15 +14,13 @@ import { useSelector } from "react-redux";
 export default function SectionPessoaFisica() {
     const dispatch = useDispatch();
     const [nome, setNome] = useState("")
-    const [telefone, setTelefone] = useState("")
-    const [email, setEmail] = useState("")
-    const [dataNacimento, setData] = useState("")
+    const [dataNacimento, setData] = useState("05/05/1994")
     const [estudante, setEstudante] = useState(false);
     const [produtorRural, setProdutorRural] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const dadosPessoaFisica = useSelector((state: any) => state.dadosPessoaFisica)
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
-    const verificacaoFormulario = nome && telefone && email
+    const verificacaoFormulario = nome
 
 
     const toggleEstudante = () => {
@@ -35,16 +33,10 @@ export default function SectionPessoaFisica() {
     function OnchangeName(event) {
         setNome(event.target.value)
     }
-    function OnchangeTelefone(event) {
-        setTelefone(event.target.value)
-    }
-
-    function OnchangeEmail(event) {
-        setEmail(event.target.value)
-    }
+   
     function OnchangeData(event) {
         console.log("data", event.$d)
-        // setData(event.target.value)
+         setData(event.$d)
     }
 
     const onChange: CheckboxProps['onChange'] = (e) => {
@@ -57,14 +49,11 @@ export default function SectionPessoaFisica() {
             pfCpf: "01424657202",
             pfNome: nome,
             pfDataNascimento: dataNacimento,
-            pfTelefone: telefone,
-            pfEmail: email,
             pfAceiteTermo: dadosPessoaFisica.pfAceiteTermo,
             pfEstudante: estudante,
             pfProdutorRural: produtorRural
         }
         if (dadosPessoaFisica.pfAceiteTermo) {
-            console.log("agora sim", data)
             dispatch(updatePessoaFisica(
                 data
             ));
@@ -89,8 +78,6 @@ export default function SectionPessoaFisica() {
                     {
                         cpf: "014.246.572-02",
                         nome: "",
-                        telefone: "",
-                        email: "",
                         nascimento: ""
                     }}
             >
@@ -136,7 +123,7 @@ export default function SectionPessoaFisica() {
                         <DatePicker onChange={(event) => OnchangeData(event)} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
 
-                    <Form.Item
+                    {/* <Form.Item
                         name="telefone"
                         label={
                             <div className="text-azulSebrae gap-1 flex">
@@ -157,7 +144,7 @@ export default function SectionPessoaFisica() {
                         }
                     >
                         <Input onChange={(event) => OnchangeEmail(event)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite o Email" />
-                    </Form.Item>
+                    </Form.Item> */}
                 </div>
                 <div className="flex flex-row items-center gap-4">
                     <div>

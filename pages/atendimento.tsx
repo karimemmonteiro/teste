@@ -41,6 +41,7 @@ export default function Atendimento2() {
   const storedStep = useSelector((state: any) => state.step);
   const [current, setCurrent] = useState(storedStep.step);
   const dadosPessoaFisica = useSelector((state: any)=> state.dadosPessoaFisica)
+  const dadosLogin = useSelector((state: any)=> state.dadosLogin)
 
   const next = () => {
     setCurrent(storedStep.step + 1);
@@ -63,7 +64,7 @@ export default function Atendimento2() {
     alignItems: "center"
   };
   useEffect(() => {
-    console.log("teste step", storedStep, "=======", dadosPessoaFisica)
+    console.log("teste step", dadosLogin)
     if(storedCpf !== ""){
       setCurrent(storedStep.step)
     }

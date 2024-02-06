@@ -45,7 +45,7 @@ export default function () {
                 dispatch(dadosLogin(
                     responseData
                 ));
-                window.location.href = "/listagem-atendimento";
+                // window.location.href = "/listagem-atendimento";
             if(cpfWithoutMask === "01424657202"){
                 window.location.href = "/listagem-atendimento";
             }
