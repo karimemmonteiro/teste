@@ -2,12 +2,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "export": "next build && next export",
     "predeploy": "npm run export",
     "deploy": "gh-pages -d out",
-    "startServer": "npx http-server out"
+    "startServer": "npx http-server out",
+    "install": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
