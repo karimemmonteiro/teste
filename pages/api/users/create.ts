@@ -1,4 +1,4 @@
-import { PrismaClient, UserCreateInput } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const prisma = new PrismaClient();
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           idSistema,
           statusResponse,
           textResponse,
-        } as UserCreateInput,
+        } as Prisma.UserCreateInput,
       });
 
       res.status(201).json(newUser);
