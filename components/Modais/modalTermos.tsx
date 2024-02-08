@@ -23,14 +23,12 @@ export default function ModalPoliticaPrivacidade() {
     ];
     function aceiteTermo() {
         const data = {
-            pfCpf: dadosPessoaFisica.pfCpf,
-            pfNome: dadosPessoaFisica.pfNome,
-            pfDataNascimento: dadosPessoaFisica.pfDataNascimento,
-            pfTelefone: dadosPessoaFisica.pfTelefone,
-            pfEmail: dadosPessoaFisica.pfEmail,
-            pfAceiteTermo: true,
-            pfEstudante: true,
-            pfProdutorRural:true
+            cpf: dadosPessoaFisica.pfCpf,
+            nome: dadosPessoaFisica.pfNome,
+            dataNascimneto: dadosPessoaFisica.pfDataNascimento,           
+            dtAceiteLgpd: true,
+            estudante: true,
+            produtorRural:true
         }
         dispatch(updatePessoaFisica(data));
         dispatch(setCpf(dadosPessoaFisica.pfCpf));

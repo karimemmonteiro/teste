@@ -1,4 +1,3 @@
-//@type {import('next').NextConfig}
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: false,
@@ -9,4 +8,6 @@ const withPWA = require('next-pwa')({
   cacheStartUrl: true,
 });
 
-module.exports = withPWA({});
+module.exports = withPWA({
+  reactStrictMode: false,
+});

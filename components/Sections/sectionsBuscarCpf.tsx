@@ -1,26 +1,103 @@
-import { IdcardOutlined, SearchOutlined } from "@ant-design/icons";
+
 import { Button, Form, Tooltip } from "antd";
 import InputMask from "react-input-mask";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCpf } from '../../Redux/actions/cpfActions';
 import { setStep } from '../../Redux/actions/stepAtendimentoAction';
+import { apiNext } from "../../config/connection";
+import { updatePessoaFisica } from "../../Redux/actions/dadosPessoaFisicaAction";
+import { updatePessoaJuridica } from "../../Redux/actions/dadosPessoaJuridicaAction";
+import { updateContatosEnderecos } from "../../Redux/actions/dadosContatosEnderecosAction";
+import { updateAtendimento } from "../../Redux/actions/dadosAtendimentoAction";
 
 export default function SectionsBuscarCpf() {
+    const dispatch = useDispatch();
+    const dadosLogin = useSelector((state: any) => state.dadosLogin)
+    console.log("Sessao Buscar Dados")
+
     type FieldType = {
         cpf: string;
     };
-    const dispatch = useDispatch();
+
+    function removeNonNumericChars(cpf) {
+        return cpf.replace(/\D/g, '');
+    }
+    async function GetDadosPorCpf(params: FieldType) {
+        const cpfWithoutMask = removeNonNumericChars(params.cpf);
+        const token = dadosLogin?.token
+        try {
+            const response = await apiNext.get(`/atendimento/buscar-dados/?cpf=${cpfWithoutMask}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            const responseData = response?.data;
+            const responsePJ = responseData?.pfPj[0]
+            const responseContatos = responseData?.clienteContatos
+            const responseEnderecos = responseData?.clienteEnderecos
+            const responseAtendimento = {
+                workflows: responseData.workflows,
+                id: responseData.id,
+                tituloEleitor: responseData.tituloEleitor,
+                rg: responseData.rg,
+                sexo: responseData.sexo,
+                escolaridade: responseData.escolaridade,
+                statusReceita: responseData.statusReceita,
+                statusSebrae: responseData.statusSebrae,
+                possuiDeficiencia: responseData.possuiDeficiencia,
+                lgpd: responseData.lgpd,
+                codUfLgpd: responseData.codUfLgpd,
+                descUfLgpd: responseData.descUfLgpd,
+                codParcLgpd: responseData.codParcLgpd,
+                nomeParceiroLgpd: responseData.nomeParceiroLgpd,
+                tipoPessoaFisica: responseData.tipoPessoaFisica,
+                verificado: responseData.verificado,
+                qtdTentativas: responseData.qtdTentativas,
+                dataNascimnetoString: responseData.dataNascimnetoString,
+                dataNascimnetoRelatorio: responseData.dataNascimnetoRelatorio,
+                codcfo: responseData.codcfo,
+                atendimentos: responseData.atendimentos,
+            }
+            const dadaContatoEnderecos = {
+                clienteEnderecos: responseEnderecos,
+                clienteContatos: responseContatos
+            }
+            const dataPF = {
+                cpf: responseData?.cpf || "",
+                nome: responseData?.nome || "",
+                dataNascimneto: responseData?.dataNascimneto || null,
+                dtAceiteLgpd: responseData?.dtAceiteLgpd || null,
+                estudante: responseData?.estudante || null,
+                produtorRural: responseData?.produtorRural || null
+            }
+            const dataPJ = responsePJ
+            dispatch(updatePessoaFisica(
+                dataPF
+            ));
+            dispatch(updatePessoaJuridica(
+                dataPJ
+            ));
+            dispatch(updateContatosEnderecos(
+                dadaContatoEnderecos
+            ));
+            dispatch(updateAtendimento(
+                responseAtendimento
+            ));
+
+        } catch (error) {
+            console.error('Erro ao fazer login:', error.message);
+        }
+    }
 
     const onFinish = (values: any) => {
-        console.log('Success:', values);
-
-        // Dispatch the action to update the CPF in the Redux store
+        GetDadosPorCpf(values)
         dispatch(setCpf(values.cpf));
         dispatch(setStep(1));
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
     return (
         <section className="w-svw flex flex-row justify-center ">
@@ -46,7 +123,7 @@ export default function SectionsBuscarCpf() {
                                 placeholder="CPF"
                             />
                             <Tooltip title="Extra information">
-                                <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: '2rem' }} />
+                                {/* <IdcardOutlined style={{ color: 'rgba(0,0,0,.45)', fontSize: '2rem' }} /> */}
                             </Tooltip>
                         </div>
                     </Form.Item>
@@ -54,7 +131,7 @@ export default function SectionsBuscarCpf() {
                 <div>
                     <Form.Item >
                         <Button className="bg-azulSebrae  rounded h-16 text-2xl flex flex-row items-center gap-2 w-36 " type="primary" htmlType="submit">
-                            Buscar <SearchOutlined />
+                            Buscar
                         </Button>
                     </Form.Item>
                 </div>

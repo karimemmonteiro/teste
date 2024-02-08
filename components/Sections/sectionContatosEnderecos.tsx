@@ -1,5 +1,4 @@
 import { Button, Divider, Form, Input, InputNumber, Select, SelectProps } from "antd";
-import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { RequiredMark } from "antd/es/form/Form";
 import InputMask from "react-input-mask";
@@ -18,7 +17,6 @@ export default function SectionContatosEnderecos() {
     }
 
     const handleChange = (value: string | string[]) => {
-        console.log(`Selected: ${value}`);
     };
 
     const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
@@ -50,7 +48,7 @@ export default function SectionContatosEnderecos() {
                             name="telefone"
                             label={
                                 <div className="text-azulSebrae gap-1 flex">
-                                    <span>Telefone</span>
+                                    <label>Telefone</label>
                                 </div>
                             }
                             required>
@@ -72,7 +70,7 @@ export default function SectionContatosEnderecos() {
                             required
                             label={
                                 <div className="text-azulSebrae gap-1 flex">
-                                    <span>E-mail</span>
+                                    <label>E-mail</label>
                                 </div>
                             }>
                             <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite um email" />
@@ -85,12 +83,12 @@ export default function SectionContatosEnderecos() {
                 </Divider>
                 <div className="grid grid-cols-12  gap-x-4 ">
                     <Form.Item
-                        className="col-span-3"
+                        className="col-label-3"
                         name="cep"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>CEP</span>
+                                <label>CEP</label>
                             </div>
                         }>
                         <div className="flex flex-row items-center border-0 rounded border-neutralSebrae px-2 hover:border-azulSebrae  focus:border-azulSebrae focus:outline-azulSebrae focus:ring focus:ring-azulSebrae">
@@ -104,60 +102,60 @@ export default function SectionContatosEnderecos() {
                         </div>
                     </Form.Item>
                     <Form.Item
-                        className="col-span-3"
+                        className="col-label-3"
                         name="bairro"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>Bairro</span>
+                                <label>Bairro</label>
                             </div>
                         }>
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite o Bairro" />
                     </Form.Item>
 
                     <Form.Item
-                        className="col-span-4"
+                        className="col-label-4"
                         name="rua"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>Rua</span>
+                                <label>Rua</label>
                             </div>
                         }>
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite a Rua" />
                     </Form.Item>
 
                     <Form.Item
-                        className="col-span-2"
+                        className="col-label-2"
                         name="numero"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>Numero</span>
+                                <label>Numero</label>
                             </div>
                         }>
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite Numero" />
                     </Form.Item>
 
                     <Form.Item
-                        className="col-span-3"
+                        className="col-label-3"
                         name="estado"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>Estado</span>
+                                <label>Estado</label>
                             </div>
                         }>
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite o Estado" />
                     </Form.Item>
 
                     <Form.Item
-                        className="col-span-3"
+                        className="col-label-3"
                         name="municipio"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>Município</span>
+                                <label>Município</label>
                             </div>
                         }
                     >
@@ -170,12 +168,12 @@ export default function SectionContatosEnderecos() {
                     </Form.Item>
 
                     <Form.Item
-                        className="col-span-6"
+                        className="col-label-6"
                         name="complemento"
                         required
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <span>Complemento</span>
+                                <label>Complemento</label>
                             </div>
                         }>
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite um complemento" />

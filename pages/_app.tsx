@@ -1,17 +1,27 @@
-import { useEffect } from 'react';
-import { createStore } from 'redux';
+import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
-
-import { useRouter } from 'next/router';
-import '../global.css'; 
+import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { rootReducer } from '../Redux/stores';
-import { useSelector } from 'react-redux';
+import "../global.css"
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(persistedReducer);
+const persistor = persistStore(store);
 
 function MyApp({ Component, pageProps }) {
-  const router = useRouter();
-  const store = createStore(rootReducer);
- 
-  return <Provider store={store}> <Component {...pageProps} />; </Provider> 
+  return (
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+  );
 }
 
 export default MyApp;

@@ -1,6 +1,5 @@
 import { Button, DatePicker, Form, Input, InputNumber, Select, SelectProps } from "antd";
 import dayjs from "dayjs";
-import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { RequiredMark } from "antd/es/form/Form";
 import { useDispatch } from "react-redux";
@@ -21,7 +20,6 @@ export default function SectionPessoaJuridica() {
     }
 
     const handleChange = (value: string | string[]) => {
-        console.log(`Selected: ${value}`);
     };
 
     const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
@@ -29,7 +27,6 @@ export default function SectionPessoaJuridica() {
     };
 
     const onFinish = (values: any) => {
-        console.log("teste dados pessoa juridica", values)
         dispatch(setStep(3));
         // const data = {
         //     pfCpf: "01424657202",
@@ -42,7 +39,6 @@ export default function SectionPessoaJuridica() {
         //     pfProdutorRural: produtorRural
         // }
         // if (dadosPessoaFisica.pfAceiteTermo) {
-        //     console.log("agora sim", data)
         //     dispatch(updatePessoaFisica(
         //         data
         //     ));
@@ -52,7 +48,7 @@ export default function SectionPessoaJuridica() {
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
     return (
         <section className="w-svw flex flex-col items-center justify-start h-full">
@@ -210,7 +206,7 @@ export default function SectionPessoaJuridica() {
 
                     <Button htmlType="submit" className="bg-green text-white flex flex-row items-center h-10 font-bold">
                         Salvar e Proceguir
-                        <DoubleRightOutlined />
+                        {/* <DoubleRightOutlined /> */}
                     </Button>
                 </div>
 

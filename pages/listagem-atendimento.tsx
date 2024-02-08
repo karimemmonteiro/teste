@@ -318,7 +318,6 @@ export default function ListaAtendimentos() {
     },
   ];
 
-  console.log("teste online", online)
   return (
     <div>
       {contextHolder}

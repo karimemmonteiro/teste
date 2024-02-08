@@ -1,5 +1,4 @@
 import {  Divider, Form, Input, Select, SelectProps, Tabs, TabsProps } from "antd";
-import { FieldTimeOutlined, FileTextFilled, IdcardFilled, InfoCircleFilled } from '@ant-design/icons';
 
 export default function SectionAtendimento() {
     const { TextArea } = Input;
@@ -8,11 +7,10 @@ export default function SectionAtendimento() {
     };
 
     const onFinish = (values: any) => {
-        console.log('Success:', values);
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
     function Atendimento() {
         const options: SelectProps['options'] = [];
@@ -25,7 +23,6 @@ export default function SectionAtendimento() {
         }
 
         const handleChange = (value: string | string[]) => {
-            console.log(`Selected: ${value}`);
         };
         return (
             <section className="w-svw h-full">
@@ -53,8 +50,8 @@ export default function SectionAtendimento() {
                             <Form.Item
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Atendente</span>
-                                        <span className="text-red">*</span>
+                                        <label>Atendente</label>
+                                        <label className="text-red">*</label>
                                     </div>
                                 }
                                 name="atendente"
@@ -68,7 +65,7 @@ export default function SectionAtendimento() {
                                 required
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Unidade Organizacional</span>
+                                        <label>Unidade Organizacional</label>
                                     </div>
                                 }
                             >
@@ -85,7 +82,7 @@ export default function SectionAtendimento() {
                                 required
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Tema</span>
+                                        <label>Tema</label>
                                     </div>
                                 }
                             >
@@ -101,8 +98,8 @@ export default function SectionAtendimento() {
                                 name="projetoAcao"
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Projeto | Ação</span>
-                                        <span className="text-red">*</span>
+                                        <label>Projeto | Ação</label>
+                                        <label className="text-red">*</label>
                                     </div>
                                 }
                             >
@@ -114,7 +111,7 @@ export default function SectionAtendimento() {
                                 required
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Tipo de Atendimento</span>
+                                        <label>Tipo de Atendimento</label>
                                     </div>
                                 }
                             >
@@ -131,7 +128,7 @@ export default function SectionAtendimento() {
                                 required
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Canal de Atendimento</span>
+                                        <label>Canal de Atendimento</label>
                                     </div>
                                 }
                             >
@@ -149,8 +146,8 @@ export default function SectionAtendimento() {
                                 required
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Descrição do Atendimento</span>
-                                        <IdcardFilled />
+                                        <label>Descrição do Atendimento</label>
+                                        {/* <IdcardFilled /> */}
                                     </div>
                                 }
                             >
@@ -160,8 +157,8 @@ export default function SectionAtendimento() {
                                 name="pendencias"
                                 label={
                                     <div className="text-azulSebrae gap-1 flex">
-                                        <span>Pendencias</span>
-                                        <InfoCircleFilled />
+                                        <label>Pendencias</label>
+                                        {/* <InfoCircleFilled /> */}
                                     </div>
                                 }
                             >
@@ -180,9 +177,24 @@ export default function SectionAtendimento() {
     }
 
     const items: TabsProps['items'] = [
-        { key: '1', label: 'Atendimento', children: <Atendimento />, icon: <IdcardFilled /> },
-        { key: '2', label: '', children: 'Content of Tab Pane 2', icon: <FileTextFilled /> },
-        { key: '3', label: '', children: 'Content of Tab Pane 3', icon: <FieldTimeOutlined /> },
+        { 
+            key: '1', 
+            label: 'Atendimento', 
+            children: <Atendimento />, 
+            // icon: <IdcardFilled /> 
+        },
+        { 
+            key: '2', 
+            label: '', 
+            children: 'Content of Tab Pane 2', 
+            // icon: <FileTextFilled /> 
+        },
+        { 
+            key: '3', 
+            label: '', 
+            children: 'Content of Tab Pane 3', 
+            // icon: <FieldTimeOutlined /> 
+        },
     ];
     return (
         <section className=" w-full flex flex-row items-start h-[48rem] ">

@@ -1,23 +1,25 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
+import { createStore } from "redux";
+import { rootReducer } from "../Redux/stores";
+import { Provider } from "react-redux";
 
 const IndexPage = () => {
-  const dadosLogin = useSelector((state: any) => state.dadosLogin);
-  const storedStep = useSelector((state: any) => state.step);
   const router = useRouter();
 
-  useEffect(() => {
-    const isAuthenticated = true;
+  const store = createStore(rootReducer);
 
-    if (!isAuthenticated) {
-      router.push('/');
-    }
-  }, []);
+  // useEffect(() => {
+  //   const isAuthenticated = true;
+
+  //   if (!isAuthenticated) {
+  //     router.push('/');
+  //   }
+  // }, []);
 
   return (
-    <Layout title="Sebrae | Atendimento Externo" />
+      <Layout title="Sebrae | Atendimento Externo" />
   );
 };
 

@@ -1,9 +1,8 @@
 import { ArrowRightOutlined, IdcardOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Tooltip, message } from "antd";
-import { useRef } from "react";
 import InputMask from "react-input-mask";
-import apiPss from "../config/connection";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { apiPss } from "../config/connection";
 import { dadosLogin } from "../Redux/actions/dadosLoginAction";
 
 export default function () {
@@ -28,7 +27,7 @@ export default function () {
 
     async function Login(params: FieldType) {
         const cpfWithoutMask = removeNonNumericChars(params.cpf);
-        console.log("teste params,", cpfWithoutMask)
+        
         try {
             const response = await apiPss.post("/Usuarios/Logar", {
                 cpf: cpfWithoutMask,
@@ -45,9 +44,9 @@ export default function () {
                 dispatch(dadosLogin(
                     responseData
                 ));
-                // window.location.href = "/listagem-atendimento";
-            if(cpfWithoutMask === "01424657202"){
                 window.location.href = "/listagem-atendimento";
+            if(cpfWithoutMask === "01424657202"){
+                // window.location.href = "/listagem-atendimento";
             }
             }else{
                 error()
@@ -59,7 +58,6 @@ export default function () {
     }
 
     const onFinish = (values: any) => {
-        console.log('Success:', values);
         if(values.cpf === "014.246.572-02"){
             window.location.href = "/listagem-atendimento";
         }else{
@@ -69,7 +67,7 @@ export default function () {
     
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
 
     return (

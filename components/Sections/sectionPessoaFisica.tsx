@@ -1,7 +1,7 @@
-import { GiftFilled, IdcardOutlined, MailFilled, PhoneFilled, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, CheckboxProps, Form, Input, Tag } from "antd";
+
+import { Button, Checkbox, CheckboxProps, Form, Input, } from "antd";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalPoliticaPrivacidade from "../Modais/modalTermos";
 import { useDispatch } from "react-redux";
 import { updatePessoaFisica } from "../../Redux/actions/dadosPessoaFisicaAction";
@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 export default function SectionPessoaFisica() {
     const dispatch = useDispatch();
+    const [cpf, setCpf] = useState("")
     const [nome, setNome] = useState("")
     const [dataNacimento, setData] = useState("05/05/1994")
     const [estudante, setEstudante] = useState(false);
@@ -21,6 +22,8 @@ export default function SectionPessoaFisica() {
     const dadosPessoaFisica = useSelector((state: any) => state.dadosPessoaFisica)
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
     const verificacaoFormulario = nome
+
+    console.log("Sessao Pessoa Fisica")
 
 
     const toggleEstudante = () => {
@@ -33,41 +36,44 @@ export default function SectionPessoaFisica() {
     function OnchangeName(event) {
         setNome(event.target.value)
     }
-   
+    useEffect(() => {
+        if (dadosPessoaFisica) {
+            setNome(dadosPessoaFisica?.nome)
+            setCpf(dadosPessoaFisica?.cpf)
+        }
+    }, [])
+
     function OnchangeData(event) {
-        console.log("data", event.$d)
-         setData(event.$d)
+        setData(event.$d)
     }
 
     const onChange: CheckboxProps['onChange'] = (e) => {
-        console.log('checked = ', e.target.checked);
         setEstudante(e.target.checked);
     };
 
     const onFinish = (values: any) => {
         const data = {
-            pfCpf: "01424657202",
-            pfNome: nome,
-            pfDataNascimento: dataNacimento,
-            pfAceiteTermo: dadosPessoaFisica.pfAceiteTermo,
-            pfEstudante: estudante,
-            pfProdutorRural: produtorRural
+            cpf: "01424657202",
+            nome: nome,
+            dataNascimneto: dataNacimento,
+            dtAceiteLgpd: dadosPessoaFisica.pfAceiteTermo,
+            estudante: estudante,
+            produtorRural: produtorRural
         }
         if (dadosPessoaFisica.pfAceiteTermo) {
             dispatch(updatePessoaFisica(
                 data
             ));
         }
-
-
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
     return (
-        <section className="w-svw flex flex-row items-start h-full">
+        <section suppressHydrationWarning={true} className="w-svw flex flex-row items-start h-full">
             <Form
+                suppressHydrationWarning={true}
                 name="formularioDadosPessoaFisica"
                 layout="vertical"
                 className="w-full gap-4 px-10"
@@ -76,15 +82,15 @@ export default function SectionPessoaFisica() {
                 autoComplete="off"
                 initialValues={
                     {
-                        cpf: "014.246.572-02",
-                        nome: "",
+                        cpf: cpf,
+                        nome: nome,
                         nascimento: ""
                     }}
             >
                 <Form.Item
                     label={
                         <div className="text-azulSebrae gap-1 flex">
-                            <IdcardOutlined style={{ fontSize: "1rem" }} />
+                            {/* <IdcardOutlined style={{ fontSize: "1rem" }} /> */}
                             <span>CPF</span>
                             <span className="text-red">*</span>
                         </div>
@@ -100,7 +106,7 @@ export default function SectionPessoaFisica() {
                         name="nome"
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <UserOutlined />
+                                {/* <UserOutlined /> */}
                                 <span>Nome Completo</span>
                                 <span className="text-red">*</span>
                             </div>
@@ -113,14 +119,14 @@ export default function SectionPessoaFisica() {
                         name="nascimento"
                         label={
                             <div className="text-azulSebrae gap-1 flex">
-                                <GiftFilled />
+                                {/* <GiftFilled /> */}
                                 <span>Data de Nascimento</span>
                                 <span className="text-red">*</span>
                             </div>
                         }
                         required
                     >
-                        <DatePicker onChange={(event) => OnchangeData(event)} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
+                        <DatePicker suppressHydrationWarning onChange={(event) => OnchangeData(event)} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
 
                     {/* <Form.Item

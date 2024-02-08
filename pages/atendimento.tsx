@@ -1,47 +1,48 @@
-
 import React, { useEffect } from 'react';
-import { Button, Steps, message, theme } from "antd";
+import { Button, Steps, message} from "antd";
 import { useState } from "react";
 import SectionsBuscarCpf from "../components/Sections/sectionsBuscarCpf";
 import SectionPessoaFisica from "../components/Sections/sectionPessoaFisica";
-import SectionPessoaJuridica from "../components/Sections/sectionPessoaJuridica";
-import SectionContatosEnderecos from "../components/Sections/sectionContatosEnderecos";
-import SectionAtendimento from "../components/Sections/sectionAtendimento";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setStep } from '../Redux/actions/stepAtendimentoAction';
+ 
 
-const steps = [
-  {
-    title: 'Buscar CPF',
-    content: <SectionsBuscarCpf />,
-  },
-  {
-    title: 'Pessoa Fisica',
-    content: <SectionPessoaFisica />,
-  },
-  {
-    title: 'Pessoa Jurídica',
-    content: <SectionPessoaJuridica />,
-  },
-  {
-    title: 'Contatos e Endereços',
-    content: <SectionContatosEnderecos />,
-  },
-  {
-    title: 'Atendimento',
-    content: <SectionAtendimento />,
-  },
-];
 
-export default function Atendimento2() {
+
+export default function Atendimento() {
   const dispatch = useDispatch();
-  const { token } = theme.useToken();
   const storedCpf = useSelector((state: any) => state.cpf);
   const storedStep = useSelector((state: any) => state.step);
   const [current, setCurrent] = useState(storedStep.step);
   const dadosPessoaFisica = useSelector((state: any)=> state.dadosPessoaFisica)
+  const dadosPessoaJuridica = useSelector((state: any)=> state.dadosPessoaJuridica)
+  const dadosContatosEnderecos = useSelector((state: any)=> state.dadosContatosEnderecos)
+  const atendimento = useSelector((state: any)=> state.atendimento)
   const dadosLogin = useSelector((state: any)=> state.dadosLogin)
+  
+  const steps = [
+    {
+      title: 'Buscar CPF',
+      content: <SectionsBuscarCpf />,
+    },
+    {
+      title: 'Pessoa Fisica',
+      content: <SectionPessoaFisica />,
+    },
+    // {
+    //   title: 'Pessoa Jurídica',
+    //   content: <SectionPessoaJuridica />,
+    // },
+    // {
+    //   title: 'Contatos e Endereços',
+    //   content: <SectionContatosEnderecos />,
+    // },
+    // {
+    //   title: 'Atendimento',
+    //   content: <SectionAtendimento />,
+    // },
+  ];
 
   const next = () => {
     setCurrent(storedStep.step + 1);
@@ -64,7 +65,6 @@ export default function Atendimento2() {
     alignItems: "center"
   };
   useEffect(() => {
-    console.log("teste step", dadosLogin)
     if(storedCpf !== ""){
       setCurrent(storedStep.step)
     }
@@ -73,8 +73,8 @@ export default function Atendimento2() {
 
 
   return (
-    <div className="px-5 py-5 overflow-y-hidden overflow-x-hidden over">
-      <Steps current={storedStep.step} items={items} />
+    <div suppressHydrationWarning={true} className="px-5 py-5 overflow-y-hidden overflow-x-hidden over">
+      <Steps  current={storedStep?.step} items={items} />
       <div className="w-full flex flex-row justify-between items-center py-5">
         {current > 0 && (
 
