@@ -11,7 +11,7 @@ const initialState = {
     id: 0
 };
 
-export const dadosLoginReducer= (state = initialState, action: any) => {
+export const dadosLogin = (state = initialState, action: any) => {
     switch (action.type) {
         case DADOS_LOGIN:
             console.log("Ação Despachada:", action);

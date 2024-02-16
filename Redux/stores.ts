@@ -1,8 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import loginSlice from "./slices/loginSlice";
+import { combineReducers } from "redux";
+import { cpfReducer } from "./reduxs/cpfReducer";
+import { stepReducer } from "./reduxs/stepReducer";
+import { pessoaFisicaReducer } from "./reduxs/dadosPessoaFisica";
+import { dadosLogin } from "./reduxs/dadoLogin";
 
-export const store = configureStore({
-   reducer:{
-    login: loginSlice
-   }
+export const rootReducer = combineReducers({
+    cpf: cpfReducer,
+    step: stepReducer,
+    dadosPessoaFisica: pessoaFisicaReducer,
+    dadosLogin: dadosLogin,
   });

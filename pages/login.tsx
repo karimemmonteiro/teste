@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import { ArrowRightOutlined, IdcardOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Tooltip, message } from "antd";
 import InputMask from "react-input-mask";
-import { apiNext, apiPss } from "../../config/connection";
+import { apiNext, apiPss } from "../config/connection";
 import { useOnline } from "../ultils/contants/onlineOffline";
 
-const IndexPage = (props) => {
+const Login = (props) => {
       const isOnline = useOnline();
       const [messageApi, contextHolder] = message.useMessage();
   
@@ -153,4 +153,4 @@ const IndexPage = (props) => {
       );
   }
 
-export default IndexPage;
+export default Login;

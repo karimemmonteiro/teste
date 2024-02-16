@@ -318,6 +318,7 @@ export default function ListaAtendimentos() {
     },
   ];
 
+  console.log("teste online", online)
   return (
     <div>
       {contextHolder}
@@ -329,7 +330,7 @@ export default function ListaAtendimentos() {
         </div>
       </header>
       <main>
-        <Table columns={columns} dataSource={data} rowKey="id" />
+        <Table columns={columns} dataSource={data} />
       </main>
     </div>
   )
