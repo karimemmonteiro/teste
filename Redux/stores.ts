@@ -1,18 +1,8 @@
-import { combineReducers } from "redux";
-import { cpfReducer } from "./reduxs/cpfReducer";
-import { stepReducer } from "./reduxs/stepReducer";
-import { pessoaFisicaReducer } from "./reduxs/dadosPessoaFisica";
-import { dadosLoginReducer } from "./reduxs/dadoLogin";
-import { pessoaJuridicaReducer } from "./reduxs/dadosPessoaJuridica";
-import { contatosEnderecosReducer } from "./reduxs/dadosContatosEnderecos";
-import { atendimentoReducer } from "./reduxs/dadosAtendimento";
+import { configureStore } from "@reduxjs/toolkit";
+import loginSlice from "./slices/loginSlice";
 
-export const rootReducer = combineReducers({
-    cpf: cpfReducer,
-    step: stepReducer,
-    dadosLogin: dadosLoginReducer,
-    dadosPessoaFisica: pessoaFisicaReducer,
-    dadosPessoaJuridica: pessoaJuridicaReducer,
-    dadosContatosEnderecos: contatosEnderecosReducer,
-    atendimento: atendimentoReducer,
+export const store = configureStore({
+   reducer:{
+    login: loginSlice
+   }
   });

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,11 +8,125 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  cpf     String
-  token    String
-  refreshToken String
-  idSistema Int
+  id             Int    @id @default(autoincrement())
+  cpf            String @unique
+  senha          String
+  token          String
+  refreshToken   String
+  idSistema      Int
   statusResponse Int
-  textResponse String
+  textResponse   String
 }
+
+//Tabelas de cadastro atendimento
+
+model PessoaJuridica {
+  id               Int       @id @map(name: "idPessoaJuridica")
+  cnpj             String
+  nomeFantasia     String
+  dataCriacao      DateTime  @map(name: "dataCriacao")
+  razaoSocial      String
+  telefone         String?
+  email            String?
+  cep              String
+  endereco         String
+  porte            Int
+  descPorte        String
+  atividade        String
+  descricaoStatusReceita String
+  descricaoStatusSebrae String
+  preenchidoManualmente Int
+  cnaeId           Int
+  cnaeDesc         String
+  codNaturezaJuridicaSas Int?
+  descNaturezaJuridica String
+  codNaturezaJuridicaConcla Int
+  quantidadeFuncionarios Int
+  statusSincronismoSas String?
+  codConstTipoEmpreendimento Int?
+  codParceiroSas   Int?
+}
+
+model Cliente {
+  idCliente        Int       @id @map(name: "idCliente")
+  cpf              String
+  nome             String
+  dataNascimento   DateTime  @map(name: "dataNascimneto")
+  email            String
+  telefone         String
+  cep              String?
+  endereco         String?
+  tituloEleitor    String?
+  rg               String?
+  sexo             String?
+  escolaridade     String?
+  statusReceita    String?
+  statusSebrae     String?
+  possuiDeficiencia String?
+  lgpd             String?
+  codUfLgpd        String?
+  descUfLgpd       String?
+  codParcLgpd      String?
+  dtAceiteLgpd     DateTime?
+  nomeParceiroLgpd String?
+  tipoPessoaFisica String?
+  verificado       String?
+  qtdTentativas    Int
+  estudante        Boolean
+  produtorRural    Boolean
+  dataNascimentoString String
+  dataNascimentoRelatorio String
+  codcfo           String?
+}
+
+model ClienteEndereco {
+  id               Int       @id
+  idCliente        Int
+  numSeqEnd        Int?
+  endCorresp       String?
+  codLogr          Int?
+  descEndereco     String
+  numero           String
+  complemento      String
+  codBairro        Int
+  descBairro       String
+  codCid           Int
+  descCid          String
+  codEst           Int
+  descEst          String
+  codPais          Int
+  descPais         String
+  cep              Int
+  endInternacional String?
+  indCorrespond    String?
+  principal        Int
+  codigoMunicipioRM Int?
+  tpOperacao       String?
+  autorizaCorrespondencia String?
+  isEmptyCep       Boolean
+  isEmptyDescEndereco Boolean
+  isEmptyDescBairro Boolean
+  isEmptyMunicipio Boolean
+}
+
+model ClienteContato {
+  id               Int       @id
+  cpf              String
+  numSeqCom        Int?
+  codComunic       Int
+  descComunic      String
+  numero           String
+  indInternet      Int?
+  recebeContato    Int
+  recebeSMS        Int?
+  principal        Int
+  inputVazio       Boolean
+  tpContato        String?
+  tpOperacao       String?
+  autorizaLigacao  Int?
+  autorizaMensagem Int?
+}
+
+
+
+
