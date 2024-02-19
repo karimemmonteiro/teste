@@ -4,7 +4,7 @@ import { ArrowRightOutlined, IdcardOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Tooltip, message } from "antd";
 import InputMask from "react-input-mask";
 import { apiNext, apiPss } from "../config/connection";
-import { useOnline } from "../ultils/contants/onlineOffline";
+import useOnline from "../ultils/contants/onlineOffline";
 
 const Login = (props) => {
       const isOnline = useOnline();
@@ -42,10 +42,7 @@ const Login = (props) => {
                   if (responseData.status === 200) {
                       localStorage.setItem('userToken', responseData.user.token);
                       localStorage.setItem('userCpf', cpfWithoutMask);
-                      window.location.href = "/atendimento";
-                      if (cpfWithoutMask === "01424657202") {
-                          window.location.href = "/atendimento";
-                      }
+                      window.location.href = "/listagem-atendimento";
                   } else {
                       error()
                   }
@@ -62,10 +59,7 @@ const Login = (props) => {
                   if (responseData.status === 200) {
                       localStorage.setItem('userToken', responseData.user.token);
                       localStorage.setItem('userCpf', cpfWithoutMask);
-                      window.location.href = "/atendimento";
-                      if (cpfWithoutMask === "01424657202") {
-                          window.location.href = "/atendimento";
-                      }
+                      window.location.href = "/listagem-atendimento";
                   } else {
                       error()
                   }

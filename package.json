@@ -11,6 +11,8 @@
     "install": "prisma generate"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.0.3",
+    "@ant-design/plots": "^2.1.13",
     "@prisma/client": "^5.9.1",
     "@reduxjs/toolkit": "^2.1.0",
     "@types/react-redux": "^7.1.33",

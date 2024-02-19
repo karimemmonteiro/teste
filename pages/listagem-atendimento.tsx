@@ -4,6 +4,7 @@ import type { GetRef, TableColumnsType, TableColumnType } from 'antd';
 import { Button, Input, Space, Table, notification } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import Sidebar from '../components/SideBar';
+import { apiNext } from '../config/connection';
 // import Highlighter from 'react-highlight-words';
 
 type InputRef = GetRef<typeof Input>;
@@ -11,114 +12,27 @@ type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
 interface DataType {
   id: string;
-  name: string;
+  nome: string;
   cpf: string;
   status: boolean;
-  porte: string,
-  data: string,
+  descPorte: string,
+  dataCriacaoRelatorio: string,
   dadosCliente: string,
   categoria: string,
-  duracao: string
+  tempoAtendimento: string
 }
 
 type DataIndex = keyof DataType;
 
-const data: DataType[] = [
-  {
-    id: '1',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: false,
-  },
-  {
-    id: '2',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: true,
-  },
-  {
-    id: '3',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: false,
-  },
-  {
-    id: '4',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: true,
-  },
-  {
-    id: '5',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: false,
-  },
-  {
-    id: '6',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: true,
-  },
-  {
-    id: '7',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: false,
-  },
-  {
-    id: '8',
-    name: 'Karimem Monteiro Cavalcante',
-    porte: "Micro empreendedor individual",
-    data: "31/07/2023",
-    dadosCliente: "24041750253 - MARISTELA CAMPELO DE CARVALHO / 12600762000108 - MARISTELA CAMPELO DE CARVALHO 24041750253",
-    categoria: "Consultoria	",
-    duracao: "01:12:49",
-    cpf: "014.246.572-02",
-    status: true,
-  },
-];
 export default function ListaAtendimentos() {
   const [online, setOnline] = useState(false);
+  const [dados, setDados] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
   const [api, contextHolder] = notification.useNotification();
+
+  
 
   function openNotificationWithIcon(type: NotificationType) {
     api[type]({
@@ -128,8 +42,19 @@ export default function ListaAtendimentos() {
     });
   };
 
+  async function obterDadosAtendimentos() {
+    try {
+      const response = await apiNext.get('/atendimento/');
+      console.log('Dados recebidos:', response.data);
+      setDados(response.data)
+    } catch (error) {
+      console.error('Erro ao receber os dados:', error);
+      throw error;
+    }
+  }
+
   useEffect(() => {
-    // Check if navigator is defined (client-side)
+    obterDadosAtendimentos()
     if (typeof navigator !== 'undefined') {
       setOnline(navigator.onLine);
 
@@ -249,39 +174,39 @@ export default function ListaAtendimentos() {
   const columns: TableColumnsType<DataType> = [
     {
       title: 'Data',
-      dataIndex: 'data',
-      key: 'data',
+      dataIndex: 'dataCriacaoRelatorio',
+      key: 'dataCriacaoRelatorio',
       width: '1%',
-      ...getColumnSearchProps('data'),
+      ...getColumnSearchProps('dataCriacaoRelatorio'),
     },
     {
       title: 'Dados Cliente',
-      dataIndex: 'dadosCliente',
-      key: 'dadosCliente',
+      dataIndex: 'nome',
+      key: 'nome',
       width: '20%',
-      ...getColumnSearchProps('dadosCliente'),
+      ...getColumnSearchProps('nome'),
     },
     {
       title: 'Porte',
-      dataIndex: 'porte',
-      key: 'porte',
+      dataIndex: 'descPorte',
+      key: 'descPorte',
       width: '5%',
-      ...getColumnSearchProps('porte'),
+      ...getColumnSearchProps('descPorte'),
     },
-    {
-      title: 'Categoria',
-      dataIndex: 'categoria',
-      key: 'categoria',
-      width: '5%',
-      ...getColumnSearchProps('categoria'),
-    },
+    // {
+    //   title: 'Categoria',
+    //   dataIndex: 'categoria',
+    //   key: 'categoria',
+    //   width: '5%',
+    //   ...getColumnSearchProps('categoria'),
+    // },
 
     {
       title: 'Duração',
-      dataIndex: 'duracao',
-      key: 'duracao',
+      dataIndex: 'tempoAtendimento',
+      key: 'tempoAtendimento',
       width: '5%',
-      ...getColumnSearchProps('duracao'),
+      ...getColumnSearchProps('tempoAtendimento'),
     },
     {
       title: 'Status',
@@ -325,12 +250,12 @@ export default function ListaAtendimentos() {
       <header className='flex flex-col '>
         <Sidebar />
         <div className='w-full flex flex-row justify-end px-10 py-5'>
-          <h1>{online}</h1>
+          {/* <DemoLiquid /> */}
           <Button onClick={() => novoAtendimento()} className=' h-10 flex flex-row items-center bg-azulSebrae text-white'><PlusSquareOutlined /> Novo Atendimento</Button>
         </div>
       </header>
       <main>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={dados} />
       </main>
     </div>
   )

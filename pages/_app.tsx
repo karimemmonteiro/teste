@@ -3,15 +3,31 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import { useRouter } from 'next/router';
-import '../global.css'; 
+import '../global.css';
 import { rootReducer } from '../Redux/stores';
 import { useSelector } from 'react-redux';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const store = createStore(rootReducer);
- 
-  return <Provider store={store}> <Component {...pageProps} />; </Provider> 
+  const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
+  console.log("teste login", userToken)
+
+  useEffect(() => {
+    if (userToken !== null) {
+      const decoded: any = jwtDecode<JwtPayload>(userToken);
+      localStorage.setItem('userName', decoded?.name);
+      console.log("teste description token:", decoded)
+
+    } else {
+      if (window.location.pathname !== "/") {
+        window.location.href = "/";
+      }
+    }
+  }, [])
+
+  return <Provider store={store}> <Component {...pageProps} />  </Provider>
 }
 
 export default MyApp;

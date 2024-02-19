@@ -1,38 +1,25 @@
-import localforage from 'localforage';
+import { PrismaClient } from '@prisma/client';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-interface Usuario {
-  nome: string;
-  email: string;
-}
+const prisma = new PrismaClient();
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const usuariosLocal: Usuario[] = await localforage.getItem('usuarios') || [];
-      res.status(200).json({ data: usuariosLocal });
+      const clientes = await prisma.cliente.findMany({
+        include: {
+          telefones: true,
+          emails: true,
+          enderecos: true,
+        },
+      });
+
+      res.status(200).json(clientes);
     } catch (error) {
-      console.error('Erro ao obter usuários localmente:', error);
-      res.status(500).json({ error: 'Erro interno do servidor ao obter usuários' });
-    }
-  } else if (req.method === 'POST') {
-    try {
-      const novoUsuario: Usuario = req.body;
-
-      if (!novoUsuario || typeof novoUsuario !== 'object') {
-        res.status(400).json({ error: 'Dados de usuário inválidos' });
-        return;
-      }
-
-      const usuariosLocal: Usuario[] = (await localforage.getItem('usuarios')) || [];
-      usuariosLocal.push(novoUsuario);
-      await localforage.setItem('usuarios', usuariosLocal);
-
-      res.status(201).json({ data: novoUsuario });
-    } catch (error) {
-      console.error('Erro ao criar usuário localmente:', error);
-      res.status(500).json({ error: 'Erro interno do servidor ao criar usuário' });
+      console.error("Erro:", error);
+      res.status(500).json({ message: 'Erro ao obter clientes' });
     }
   } else {
-    res.status(405).json({ error: 'Método não permitido' });
+    res.status(405).json({ message: 'Método não permitido' });
   }
 }

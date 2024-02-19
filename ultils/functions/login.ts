@@ -1,6 +1,6 @@
 import { message } from "antd";
 import { apiNext } from "../../config/connection";
-import { useOnline } from "../contants/onlineOffline";
+import useOnline from "../contants/onlineOffline";
 type FieldType = {
     cpf: string;
     password?: string;

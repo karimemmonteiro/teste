@@ -1,10 +1,8 @@
 import { Button, DatePicker, Form, Input, InputNumber, Select, SelectProps } from "antd";
 import dayjs from "dayjs";
-import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { RequiredMark } from "antd/es/form/Form";
 import { useDispatch } from "react-redux";
-import { setStep } from "../../Redux/actions/stepAtendimentoAction";
 
 export default function SectionPessoaJuridica() {
     const dispatch = useDispatch();
@@ -21,7 +19,6 @@ export default function SectionPessoaJuridica() {
     }
 
     const handleChange = (value: string | string[]) => {
-        console.log(`Selected: ${value}`);
     };
 
     const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
@@ -29,113 +26,87 @@ export default function SectionPessoaJuridica() {
     };
 
     const onFinish = (values: any) => {
-        console.log("teste dados pessoa juridica", values)
-        dispatch(setStep(3));
-        // const data = {
-        //     pfCpf: "01424657202",
-        //     pfNome: nome,
-        //     pfDataNascimento: dataNacimento,
-        //     pfTelefone: telefone,
-        //     pfEmail: email,
-        //     pfAceiteTermo: dadosPessoaFisica.pfAceiteTermo,
-        //     pfEstudante: estudante,
-        //     pfProdutorRural: produtorRural
-        // }
-        // if (dadosPessoaFisica.pfAceiteTermo) {
-        //     console.log("agora sim", data)
-        //     dispatch(updatePessoaFisica(
-        //         data
-        //     ));
-        // }
 
 
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     };
     return (
-        <section className="w-svw flex flex-col items-center justify-start h-full">
-            <header className="w-full px-10  ">
+        <div className="w-svw flex flex-col h-full p-5">
+            <header className="w-full pb-5">
                 <h1 className=" text-azulSebrae font-bold ">Dados do CNPJ Vinculado</h1>
             </header>
-            <Form
-                name="formularioDadosPessoajuridica"
-                layout="vertical"
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-                className=" w-svw  p-10 justify-start flex flex-col "
-                initialValues={
-                    {
-                        razaoSocial: "",
-                        cnpj: "",
-                        nomeFantasia: "",
-                        dataCriacao: "",
-                        situação: "",
-                        porte: "",
-                        funcionarios: 0,
-                        natureza: "",
-                        atividade: []
-                    }}
-                onValuesChange={onRequiredTypeChange}
-            >
+            <div>
+                <div className="text-azulSebrae gap-1 flex">
+                    <h3>Razão Social</h3>
+                </div>
                 <Form.Item
                     name="razaoSocial"
                     required
-                    label={
-                        <div className="text-azulSebrae gap-1 flex">
-                            <span>Razão Social</span>
-                        </div>
-                    }
-
                 >
                     <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite a Razão Social" />
                 </Form.Item>
-
-                <div className="grid grid-cols-2  gap-x-4 ">
+            </div>
+            <div className="grid grid-cols-2  gap-x-4 ">
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>CNPJ</h3>
+                    </div>
                     <Form.Item
                         name="cnpj"
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>CNPJ</span>
-                            </div>
-                        }
                         required>
                         <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite o CNPJ" />
                     </Form.Item>
-
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Nome Fantasia</h3>
+                    </div>
                     <Form.Item
                         name="nomeFantasia"
-                        required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Nome Fantasia</span>
-                            </div>
-                        }>
+                        required>
                         <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite nome fantasia" />
                     </Form.Item>
-
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Data de Criação</h3>
+                    </div>
                     <Form.Item
-                        name="dataDeCriacao"
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Data de Criação</span>
-                            </div>
-                        }
+                        name="dataCriacaoRelatorio"
                         required
                     >
-                        <DatePicker defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
+                        <DatePicker format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
-
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Situação Receita</h3>
+                    </div>
                     <Form.Item
-                        name="situacaoReceita"
+                        name="descricaoStatusReceita"
                         required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Situação Receita</span>
-                            </div>
-                        }
+                    >
+                        <Select
+                            className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
+                            onChange={handleChange}
+                            options={[{
+                                label: "Validado", value: "Validado"
+                            }, {
+                                label: "Invalido", value: "Invalido"
+                            }]}
+                        />
+                    </Form.Item>
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Porte da Empresa</h3>
+                    </div>
+                    <Form.Item
+                        name="descPorte"
+                        required
                     >
                         <Select
                             className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
@@ -145,76 +116,57 @@ export default function SectionPessoaJuridica() {
                         />
                     </Form.Item>
 
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Quantidade Funcionários</h3>
+                    </div>
                     <Form.Item
-                        name="porteDaEmpresa"
-                        required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Porte da Empresa</span>
-                            </div>
-                        }
-                    >
-                        <Select
-                            className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
-                            defaultValue="a1"
-                            onChange={handleChange}
-                            options={options}
-                        />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="quantidadeFuncionario"
-                        required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Quantidade Funcionários</span>
-                            </div>
-                        }>
+                        name="quantidadeFuncionarios"
+                        required>
                         <InputNumber className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Quantidade de Funcionários" />
                     </Form.Item>
-
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Natureza da Empresa</h3>
+                    </div>
                     <Form.Item
-                        name="naturezaJuridica"
-                        required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Natureza da Empresa</span>
-                            </div>
-                        }>
+                        name="descNaturezaJuridica"
+                        required>
                         <Input className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" placeholder="Digite a Natureza da Empresa" />
                     </Form.Item>
-                    <Form.Item
-                        name="atividadeEconomica"
-                        required
-                        label={
-                            <div className="text-azulSebrae gap-1 flex">
-                                <span>Atividade Econômica</span>
-                            </div>
-                        }>
+                </div>
+                <div>
+                    <div className="text-azulSebrae gap-1 flex">
+                        <h3>Atividade Econômica</h3>
+                    </div>
+                    <Form.Item name="atividade" className="h-auto min-h-11" required>
                         <Select
                             mode="multiple"
-                            className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
-                            defaultValue={['teste01']}
+                            className="w-full h-auto rounded text-lg"
                             placeholder="Digite as atividades Econômicas"
-                            style={{ flex: 1 }}
                             options={[
                                 { value: 'teste01', label: 'teste01' },
                                 { value: 'teste02', label: 'teste02' },
                                 { value: 'teste03', label: 'teste03' },
+                                { value: "Comércio varejista especializado de equipamentos e suprimentos de informática", label: "Comércio varejista especializado de equipamentos e suprimentos de informática" }
                             ]}
                         />
                     </Form.Item>
 
                 </div>
-                <div className="w-full flex flex-row justify-end items-center  ">
+                <div className="fixed right-5 bottom-5 flex flex-row  p-0 m-0 gap-5">
 
-                    <Button htmlType="submit" className="bg-green text-white flex flex-row items-center h-10 font-bold">
-                        Salvar e Proceguir
-                        <DoubleRightOutlined />
+                    <Button
+                        htmlType="submit"
+                        className="bg-green text-white flex flex-row items-center h-10 font-bold"
+                    >
+                        Salvar e Prosseguir
                     </Button>
                 </div>
+            </div>
 
-            </Form>
-        </section>
+        </div>
     )
 }

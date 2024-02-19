@@ -7,14 +7,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const { cpf, ...dados } = req.body;
-      const { telefones, emails, enderecos, ...clienteDados } = dados;
 
-      const updatedCliente = await prisma.cliente.upsert({
-        where: {
-          cpf: cpf,
-        },
+      // Verifique se o cliente existe
+      const existingCliente = await prisma.cliente.findUnique({
+        where: { cpf: cpf },
+      });
+
+      if (!existingCliente) {
+        return res.status(404).json({ message: 'Cliente não encontrado' });
+      }
+
+      // Atualize os registros relacionados (telefones, emails, endereços)
+      const telefones = Array.isArray(dados.telefones) ? dados.telefones : [];
+      const emails = Array.isArray(dados.emails) ? dados.emails : [];
+      const enderecos = Array.isArray(dados.enderecos) ? dados.enderecos : [];
+
+      const updatedUser = await prisma.cliente.upsert({
+        where: { cpf: cpf },
         update: {
-          ...clienteDados,
+          ...dados,
           telefones: {
             upsert: telefones.map(t => ({
               where: { id: t.id || -1 },
@@ -38,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         },
         create: {
-          ...clienteDados,
+          ...dados,
           cpf: cpf,
           telefones: {
             create: telefones,
@@ -52,13 +63,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       });
 
-      res.status(200).json({ message: 'Cadastrado com Sucesso', cliente: updatedCliente, status: 200 });
+      res.status(200).json({ message: 'Usuário atualizado', user: updatedUser, status: 200 });
     } catch (error) {
       console.error("Erro:", error);
-      res.status(401).json({ message: 'Falha na autenticação' });
+      res.status(500).json({ message: 'Erro ao atualizar usuário' });
     }
-
   } else {
-    res.status(405).json({ message: 'Method not allowed' });
+    res.status(405).json({ message: 'Método não permitido' });
   }
 }

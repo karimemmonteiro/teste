@@ -1,9 +1,7 @@
 import React, { ReactNode, useEffect } from "react";
 import { useRouter } from 'next/router';
-import Link from "next/link";
 import Head from "next/head";
 import Login from "../pages/login";
-import { useSelector } from "react-redux";
 
 type Props = {
   children?: ReactNode;
@@ -12,8 +10,6 @@ type Props = {
 
 const Layout = ({ children, title = "This is the default title" }: Props) => {
   const router = useRouter();
-  const dadosLogin = useSelector((state: any)=> state.dadosLogin)
-  const storedStep = useSelector((state: any) => state.step);
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {

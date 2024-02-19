@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { Button, List, Modal, Typography } from 'antd';
 import { ArrowRightOutlined, RightCircleFilled } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { updatePessoaFisica } from '../../Redux/actions/dadosPessoaFisicaAction';
-import { setCpf } from '../../Redux/actions/cpfActions';
-import { setStep } from '../../Redux/actions/stepAtendimentoAction';
 
 export default function ModalPoliticaPrivacidade() {
-    const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const dadosPessoaFisica = useSelector((state: any) => state.dadosPessoaFisica)
     const datosUtilizados = [
         'CPF: identificação do cliente em nossos canais de atendimento, com chave de autenticação ao acessar as áreas restritas de nossos canais digitais e como referência para o enriquecimento e atualização de seu cadastro (controle de atendimento, por exemplo e histórico).',
         'Nome: identificação em nossos canais de atendimento.',
@@ -21,29 +15,13 @@ export default function ModalPoliticaPrivacidade() {
         'Telefone/E-mail: ações de divulgação de produtos e serviços, para realização de pesquisas por meio de ligação ou de mensagem de texto, para responder às suas solicitações ou pedidos feitos em nossos canais ou para informá-lo de questões transacionais, como mudança de horário do atendimento ou de um evento, por exemplo (agora, desde que tenha o consentimento do cliente);',
         'Informações de localidade (CEP, UF, cidade, bairro e endereço):identificação de como podemos apoiá-lo localmente, para trazer informações importantes sobre a cidade em que você está para apoiar em nosso processo de entendimento de suas necessidades, para envio de material de qualificação de alguns de nossos eventos, como destinatário em mala direta, para envio de cobrança judicial, direcionamento do atendimento em grandes cidades, para permitir o seu direcionamento ao atendimento por equipes de seu estado e para permitir um melhor planejamento do Sebrae na atuação em sua região.'
     ];
-    function aceiteTermo() {
-        const data = {
-            pfCpf: dadosPessoaFisica.pfCpf,
-            pfNome: dadosPessoaFisica.pfNome,
-            pfDataNascimento: dadosPessoaFisica.pfDataNascimento,
-            pfTelefone: dadosPessoaFisica.pfTelefone,
-            pfEmail: dadosPessoaFisica.pfEmail,
-            pfAceiteTermo: true,
-            pfEstudante: true,
-            pfProdutorRural:true
-        }
-        dispatch(updatePessoaFisica(data));
-        dispatch(setCpf(dadosPessoaFisica.pfCpf));
-        dispatch(setStep(2));
-        setOpen(false)
-    }
+
 
     return (
         <>
-            <Button onClick={() => setOpen(true)} className=" bg-azulSebrae text-white h-11 flex flex-row items-center">
+            <h1 onClick={() => setOpen(true)} className=" text-azulSebrae h-11 flex flex-row items-center">
                 Aceitar política de privacidade e avançar para Pessoa Jurídica
-                <ArrowRightOutlined />
-            </Button>
+            </h1>
             <Modal
                 title={<h1 className=' bg-azulSebrae mt-5 text-white pl-5 text-center'>TERMO DE CONSENTIMENTO LGPD</h1>}
                 centered
@@ -91,8 +69,7 @@ export default function ModalPoliticaPrivacidade() {
                     />
                 </div>
                 <div className='w-full flex flex-row justify-end gap-4'>
-                    <Button onClick={() => setOpen(false)} className=' bg-redEscuro text-white '>Recusar os Termos</Button>
-                    <Button onClick={() => aceiteTermo()} className='bg-green text-white'>Aceitar os Termos</Button>
+                    <Button onClick={() => setOpen(false)} className='bg-green text-white'>OK</Button>
                 </div>
             </Modal>
         </>

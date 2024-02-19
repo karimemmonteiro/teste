@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useOnline = () => {
+export default function useOnline(){
     const [online, setOnline] = useState(typeof window !== "undefined" && navigator.onLine);
 
     useEffect(() => {

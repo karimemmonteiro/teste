@@ -20,113 +20,75 @@ model User {
 
 //Tabelas de cadastro atendimento
 
-model PessoaJuridica {
-  id               Int       @id @map(name: "idPessoaJuridica")
-  cnpj             String
-  nomeFantasia     String
-  dataCriacao      DateTime  @map(name: "dataCriacao")
-  razaoSocial      String
-  telefone         String?
-  email            String?
-  cep              String
-  endereco         String
-  porte            Int
-  descPorte        String
-  atividade        String
-  descricaoStatusReceita String
-  descricaoStatusSebrae String
-  preenchidoManualmente Int
-  cnaeId           Int
-  cnaeDesc         String
-  codNaturezaJuridicaSas Int?
-  descNaturezaJuridica String
-  codNaturezaJuridicaConcla Int
-  quantidadeFuncionarios Int
-  statusSincronismoSas String?
-  codConstTipoEmpreendimento Int?
-  codParceiroSas   Int?
-}
-
 model Cliente {
-  idCliente        Int       @id @map(name: "idCliente")
-  cpf              String
-  nome             String
-  dataNascimento   DateTime  @map(name: "dataNascimneto")
-  email            String
-  telefone         String
-  cep              String?
-  endereco         String?
-  tituloEleitor    String?
-  rg               String?
-  sexo             String?
-  escolaridade     String?
-  statusReceita    String?
-  statusSebrae     String?
-  possuiDeficiencia String?
-  lgpd             String?
-  codUfLgpd        String?
-  descUfLgpd       String?
-  codParcLgpd      String?
-  dtAceiteLgpd     DateTime?
-  nomeParceiroLgpd String?
-  tipoPessoaFisica String?
-  verificado       String?
-  qtdTentativas    Int
-  estudante        Boolean
-  produtorRural    Boolean
-  dataNascimentoString String
-  dataNascimentoRelatorio String
-  codcfo           String?
+  id                     Int        @id @default(autoincrement())
+  cpf                    String     @unique
+  nome                   String
+  dataNascimento         String
+  produtorRural          Boolean
+  estudante              Boolean
+  lgpd                   Boolean?
+  status                 String
+  //dadosPj
+  razaoSocial            String
+  cnpj                   String
+  nomeFantasia           String
+  dataCriacaoRelatorio   String
+  descricaoStatusReceita String
+  descPorte              String
+  quantidadeFuncionarios Int
+  descNaturezaJuridica   String
+  atividade              String
+  // dados atendimento
+  atendente String
+  tempoAtendimento String
+  unidadeOrganizacional String
+  tema String
+  projetoAcao String
+  tipoAtendimento String
+  canalAtendimento String
+  descricao String
+  pendencias String
+  telefones              Telefone[]
+  emails                 Email[]
+  enderecos              Endereco[]
 }
 
-model ClienteEndereco {
-  id               Int       @id
-  idCliente        Int
-  numSeqEnd        Int?
-  endCorresp       String?
-  codLogr          Int?
-  descEndereco     String
-  numero           String
-  complemento      String
-  codBairro        Int
-  descBairro       String
-  codCid           Int
-  descCid          String
-  codEst           Int
-  descEst          String
-  codPais          Int
-  descPais         String
-  cep              Int
-  endInternacional String?
-  indCorrespond    String?
-  principal        Int
-  codigoMunicipioRM Int?
-  tpOperacao       String?
-  autorizaCorrespondencia String?
-  isEmptyCep       Boolean
-  isEmptyDescEndereco Boolean
-  isEmptyDescBairro Boolean
-  isEmptyMunicipio Boolean
-}
-
-model ClienteContato {
-  id               Int       @id
-  cpf              String
-  numSeqCom        Int?
-  codComunic       Int
+model Telefone {
+  id               Int     @id @default(autoincrement())
+  cliente          Cliente @relation(fields: [clienteId], references: [id])
+  clienteId        Int
   descComunic      String
   numero           String
-  indInternet      Int?
+  autorizaMensagem Int
   recebeContato    Int
-  recebeSMS        Int?
   principal        Int
-  inputVazio       Boolean
-  tpContato        String?
-  tpOperacao       String?
-  autorizaLigacao  Int?
-  autorizaMensagem Int?
+  recebeSMS        Int
 }
 
+model Email {
+  id               Int     @id @default(autoincrement())
+  cliente          Cliente @relation(fields: [clienteId], references: [id])
+  clienteId        Int
+  descComunic      String
+  numero           String
+  autorizaMensagem Int
+  recebeContato    Int
+  principal        Int
+  recebeSMS        Int
+}
 
-
-
+model Endereco {
+  id                      Int      @id @default(autoincrement())
+  cliente                 Cliente  @relation(fields: [clienteId], references: [id])
+  clienteId               Int
+  cep                     Int?
+  descBairro              String?
+  descEndereco            String
+  numero                  String
+  descEst                 String?
+  descCid                 String?
+  autorizaCorrespondencia Boolean?
+  complemento             String?
+  principal               Int
+}
