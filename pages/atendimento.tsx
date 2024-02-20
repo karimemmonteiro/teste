@@ -79,13 +79,35 @@ export default function Atendimento(props) {
         },
       });
       if (response.status === 200) {
-
+        console.log("teste ok", response.status)
         const responseData = response?.data;
         setDadosOnline(responseData)
-
-
-        console.log("teste data", responseData)
         const dadosContatos = responseData.clienteContatos
+        if(responseData.pfpj !== null){}
+        const dadosPJ = responseData?.pfPj[0]?.pessoaJuridicaVM || []
+
+        const pfpj = responseData.pfpj !== null? {
+          razaoSocial: dadosPJ?.razaoSocial || "",
+          cnpj: dadosPJ?.cnpj || "",
+          nomeFantasia: dadosPJ?.nomeFantasia || "",
+          dataCriacaoRelatorio: null,
+          descricaoStatusReceita: dadosPJ?.descricaoStatusReceita || "",
+          descPorte: dadosPJ?.descPorte || "",
+          quantidadeFuncionarios: dadosPJ?.quantidadeFuncionarios || "",
+          descNaturezaJuridica: dadosPJ?.descNaturezaJuridica || "",
+          atividade: dadosPJ?.atividade || "",
+        }: {
+          razaoSocial: "",
+          cnpj:  "",
+          nomeFantasia: "",
+          dataCriacaoRelatorio: null,
+          descricaoStatusReceita:  "",
+          descPorte: "",
+          quantidadeFuncionarios:  "",
+          descNaturezaJuridica: "",
+          atividade: "",
+        }
+
         const dadosEnderecos = responseData.clienteEnderecos.map(endereco => ({
           cep: endereco.cep,
           descBairro: endereco.descBairro,
@@ -97,7 +119,6 @@ export default function Atendimento(props) {
           complemento: endereco.complemento,
           principal: endereco.principal
         }));
-        const dadosPJ = responseData.pfPj[0].pessoaJuridicaVM
         const telefonesCelulares = dadosContatos.filter(item => item.descComunic === "TELEFONE CELULAR");
         const telefone = telefonesCelulares.map(telefone => ({
           numero: telefone.numero,
@@ -121,20 +142,12 @@ export default function Atendimento(props) {
           cpf: responseData.cpf,
           nome: responseData.nome,
           tempoAtendimento: "10min",
-          dataNascimento: null,
+          dataNascimento: "",
           produtorRural: responseData?.produtorRural,
           estudante: responseData.estudante,
           lgpd: responseData.lgpd,
           //Pessoa Juridica
-          razaoSocial: dadosPJ.razaoSocial,
-          cnpj: dadosPJ.cnpj,
-          nomeFantasia: dadosPJ.nomeFantasia,
-          dataCriacaoRelatorio: null,
-          descricaoStatusReceita: dadosPJ.descricaoStatusReceita,
-          descPorte: dadosPJ.descPorte,
-          quantidadeFuncionarios: dadosPJ.quantidadeFuncionarios,
-          descNaturezaJuridica: dadosPJ.descNaturezaJuridica,
-          atividade: dadosPJ.atividade,
+          pfpj:pfpj ,
           //contatos e endereços
           atendente: user,
           telefones: telefone,
@@ -150,9 +163,10 @@ export default function Atendimento(props) {
         console.error("cpf invalido")
       }
     } catch (error) {
+      
       console.error('Erro ao fazer login:', error.message);
-      formRef.current.setFieldsValue(dadosOffline);
-
+      // formRef.current.setFieldsValue(dadosOffline);
+      setCurrent(current + 1);
     }
   }
   const dadosPf = (data) => {
@@ -317,7 +331,7 @@ export default function Atendimento(props) {
         initialValues={{ cpf: cpf }}
       >
 
-        <div style={contentStyle}>{steps[current].content}</div>
+        <div style={contentStyle}>{steps[current]?.content}</div>
       </Form>
     </div>
   );

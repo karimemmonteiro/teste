@@ -7,16 +7,11 @@ import 'dayjs/locale/pt-br';
 
 export default function SectionPessoaFisica({ dadosPf }) {
     const formRef = useRef();
-    const [cpf, setCpf] = useState("")
     const [lgpd, setLgpd] = useState(false)
     const [nome, setNome] = useState("")
-    const [dataNacimento, setData] = useState("05/05/1994")
     const [estudante, setEstudante] = useState(false);
     const [produtorRural, setProdutorRural] = useState(false);
-    const [disabled, setDisabled] = useState(false);
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
-    const verificacaoFormulario = nome
-
     const toggleEstudante = () => {
         setEstudante(!estudante);
     };

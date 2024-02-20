@@ -1,4 +1,5 @@
-import { Button, Divider, Form, Input, Select, SelectProps, Tabs, TabsProps } from "antd";
+import { Button, Card, Checkbox, Divider, Form, Input, Select, SelectProps, Tabs, TabsProps } from "antd";
+import { CloseOutlined, FileTextFilled, FieldTimeOutlined } from "@ant-design/icons";
 
 export default function SectionAtendimento() {
     const { TextArea } = Input;
@@ -40,7 +41,7 @@ export default function SectionAtendimento() {
                                 <Input disabled className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae" />
                             </Form.Item>
                         </div>
-                        <div className="flex flex-col w-full">
+                        {/* <div className="flex flex-col w-full">
                             <div className="text-azulSebrae gap-1 flex">
                                 <label>Unidade Organizacional</label>
                             </div>
@@ -56,7 +57,7 @@ export default function SectionAtendimento() {
                                     options={options}
                                 />
                             </Form.Item>
-                        </div>
+                        </div> */}
                         <div className="flex flex-col w-full">
                             <div className="text-azulSebrae gap-1 flex">
                                 <label>Tema</label>
@@ -117,6 +118,61 @@ export default function SectionAtendimento() {
                             </Form.Item>
                         </div>
                     </div>
+                    <div className="pb-10">
+                        <Form.List name="temaSubtema">
+                            {(fields, { add, remove }) => (
+                                <div style={{ display: 'flex', rowGap: 4, flexDirection: 'column' }}>
+                                    {fields.map((field, index) => (
+                                        <Card
+                                            size="small"
+                                            title={`Tema / Subtema`}
+                                            key={field.key}
+                                            extra={
+                                                <CloseOutlined
+                                                    onClick={() => {
+                                                        remove(field.name);
+                                                    }}
+                                                />
+                                            }
+                                        >
+                                            <div className="flex flex-row justify-between items-center gap-4">
+
+                                                <Form.Item
+                                                    name="tema"
+                                                    className="w-full"
+                                                    required
+                                                >
+                                                    <Select
+                                                        className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
+                                                        defaultValue="a1"
+                                                        onChange={handleChange}
+                                                        options={options}
+                                                    />
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name="subtema"
+                                                    className="w-full"
+                                                    required
+                                                >
+                                                    <Select
+                                                        className=" w-full h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae"
+                                                        defaultValue="a1"
+                                                        onChange={handleChange}
+                                                        options={options}
+                                                    />
+                                                </Form.Item>
+                                            </div>
+
+                                        </Card>
+                                    ))}
+
+                                    <Button type="dashed" onClick={() => add()} block>
+                                        + Adicionar Tema / Subtema 
+                                    </Button>
+                                </div>
+                            )}
+                        </Form.List>
+                    </div>
                     <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                         <div className="flex flex-col w-full">
                             <div className="text-azulSebrae gap-1 flex">
@@ -171,13 +227,13 @@ export default function SectionAtendimento() {
             key: '2',
             label: '',
             children: 'Content of Tab Pane 2',
-            // icon: <FileTextFilled /> 
+            icon: <FileTextFilled /> 
         },
         {
             key: '3',
             label: '',
             children: 'Content of Tab Pane 3',
-            // icon: <FieldTimeOutlined /> 
+            icon: <FieldTimeOutlined /> 
         },
     ];
     return (
