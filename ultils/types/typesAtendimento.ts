@@ -1,4 +1,4 @@
-type TelefoneEmailType = {
+export type TelefoneEmailType = {
     descComunic: string;
     numero: string;
     autorizaMensagem: number;
@@ -7,7 +7,7 @@ type TelefoneEmailType = {
     recebeSMS: number;
   };
   
-  type EnderecoType = {
+export  type EnderecoType = {
     descBairro: string;
     descEndereco: string;
     numero: string;
@@ -18,7 +18,7 @@ type TelefoneEmailType = {
     principal: number;
   };
   
-  type PfpjType = {
+export  type PfpjType = {
     razaoSocial: string;
     cnpj: string;
     nomeFantasia: string;
@@ -30,7 +30,7 @@ type TelefoneEmailType = {
     atividade: string;
   };
   
-  type DadosType = {
+export  type DadosType = {
     cpf: string;
     nome: string;
     dataNascimento: string;
