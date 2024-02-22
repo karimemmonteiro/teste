@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           telefones: true,
           emails: true,
           enderecos: true,
+          Pfpj: true,
         },
       });
 

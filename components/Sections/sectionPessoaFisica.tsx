@@ -1,17 +1,32 @@
 import { Button, Checkbox, CheckboxProps, Form, Input, } from "antd";
-import dayjs from "dayjs";
+import 'moment/locale/pt-br';
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 import { useState, useEffect, useRef } from "react";
 import ModalPoliticaPrivacidade from "../Modais/modalTermos";
 import { DatePicker, Space } from 'antd';
-import 'dayjs/locale/pt-br'; 
 
-export default function SectionPessoaFisica({ dadosPf }) {
-    const formRef = useRef();
+export default function SectionPessoaFisica({ dadosPf, form }) {
+    const [todosCamposPreenchidos, setTodosCamposPreenchidos] = useState(false);
+    const dataNascimento = typeof window !== 'undefined' ? localStorage.getItem('dataNascimento') : null;
     const [lgpd, setLgpd] = useState(false)
     const [nome, setNome] = useState("")
     const [estudante, setEstudante] = useState(false);
     const [produtorRural, setProdutorRural] = useState(false);
-    const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
+    const dateFormat = 'DD/MM/YYYY'
+    useEffect(() => {
+        // const camposObrigatorios = ["lgpt"];
+        // const todosPreenchidos = camposObrigatorios.every(campo => form?.getFieldValue(campo));
+        // console.log("teste dados validados", todosPreenchidos)
+
+        if (form) {
+            const dadosForm = form?.getFieldValue()
+            const validador = true
+            console.log("teste dados validados", validador)
+            
+            setTodosCamposPreenchidos(validador);
+        }
+    }, [])
     const toggleEstudante = () => {
         setEstudante(!estudante);
     };
@@ -66,7 +81,7 @@ export default function SectionPessoaFisica({ dadosPf }) {
                         name="dataNascimento"
                         required
                     >
-                        <DatePicker format={dateFormatList[0]}  className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
+                        <DatePicker format={dateFormat} defaultValue={dayjs(dataNascimento, dateFormat)} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
                 </div>
             </div>
@@ -111,12 +126,12 @@ export default function SectionPessoaFisica({ dadosPf }) {
                     name="lgpd"
                     valuePropName="checked"
                 >
-                    <Checkbox onChange={()=> setLgpd(!lgpd)}>
+                    <Checkbox onChange={() => setLgpd(!lgpd)}>
                         <ModalPoliticaPrivacidade />
                     </Checkbox>
                 </Form.Item>
                 <Button
-                    disabled={!lgpd}
+                    disabled={!todosCamposPreenchidos}
                     htmlType="submit"
                     className="bg-green text-white flex flex-row items-center h-10 font-bold"
                 >

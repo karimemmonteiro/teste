@@ -21,15 +21,36 @@ model User {
 //Tabelas de cadastro atendimento
 
 model Cliente {
-  id                     Int        @id @default(autoincrement())
-  cpf                    String     @unique
-  nome                   String
-  dataNascimento         String
-  produtorRural          Boolean
-  estudante              Boolean
-  lgpd                   Boolean?
-  status                 String
+  id             Int      @id @default(autoincrement())
+  cpf            String   @unique
+  nome           String
+  dataNascimento String
+  produtorRural  Boolean
+  estudante      Boolean
+  lgpd           Boolean?
+  status         String
   //dadosPj
+
+  // dados atendimento
+  atendente             String
+  tempoAtendimento      String
+  unidadeOrganizacional String
+  tema                  String
+  projetoAcao           String
+  tipoAtendimento       String
+  canalAtendimento      String
+  descricao             String
+  pendencias            String
+  Pfpj                  Pfpj[]
+  telefones             Telefone[]
+  emails                Email[]
+  enderecos             Endereco[]
+}
+
+model Pfpj {
+  id                     Int     @id @default(autoincrement())
+  cliente                Cliente @relation(fields: [clienteId], references: [id])
+  clienteId              Int
   razaoSocial            String
   cnpj                   String
   nomeFantasia           String
@@ -39,19 +60,6 @@ model Cliente {
   quantidadeFuncionarios Int
   descNaturezaJuridica   String
   atividade              String
-  // dados atendimento
-  atendente String
-  tempoAtendimento String
-  unidadeOrganizacional String
-  tema String
-  projetoAcao String
-  tipoAtendimento String
-  canalAtendimento String
-  descricao String
-  pendencias String
-  telefones              Telefone[]
-  emails                 Email[]
-  enderecos              Endereco[]
 }
 
 model Telefone {

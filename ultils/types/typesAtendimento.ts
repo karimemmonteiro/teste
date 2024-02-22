@@ -1,42 +1,54 @@
-export type PessoaFisicaType = {
-    cpf: string,
-    nome: string,
-    dataNascimento: string,
-    produtorRural: boolean,
-    estudante: boolean,
-    lgpd: boolean,
-}
-
-export type TelefoneEmaiType = {
-    numero: string,
-    descComunic: string,
-    principal: number,
-    codComunic: string,
-    autorizaMensagem: number,
-    recebeContato: number,
-    recebeSMS: number
-}
-
-export type EnderecosType = {
-    descEndereco: string,
-    numero: string,
-    complemento: string,
-    codBairro: number,
-    descBairro: string,
-    codCid: number,
-    isEmptyCep:boolean,
-    isEmptyDescBairro: boolean,
-    isEmptyDescEndereco: boolean,
-    isEmptyMunicipio: boolean,
-    descCid: string,
-    codEst: number,
-    descEst: string,
-    codPais: number,
-    descPais: string,
-    cep: number,
-    principal: number,
-    autorizaCorrespondencia: boolean,
-    codLogr: number,
-    codigoMunicipioRM: number,
-    endCorresp: string
-}
+type TelefoneEmailType = {
+    descComunic: string;
+    numero: string;
+    autorizaMensagem: number;
+    recebeContato: number;
+    principal: number;
+    recebeSMS: number;
+  };
+  
+  type EnderecoType = {
+    descBairro: string;
+    descEndereco: string;
+    numero: string;
+    descEst: string;
+    descCid: string;
+    autorizaCorrespondencia: boolean;
+    complemento: string;
+    principal: number;
+  };
+  
+  type PfpjType = {
+    razaoSocial: string;
+    cnpj: string;
+    nomeFantasia: string;
+    dataCriacaoRelatorio: string;
+    descricaoStatusReceita: string;
+    descPorte: string;
+    quantidadeFuncionarios: number;
+    descNaturezaJuridica: string;
+    atividade: string;
+  };
+  
+  type DadosType = {
+    cpf: string;
+    nome: string;
+    dataNascimento: string;
+    produtorRural: boolean;
+    estudante: boolean;
+    lgpd: boolean;
+    status: string;
+    atendente: string;
+    tempoAtendimento: string;
+    unidadeOrganizacional: string;
+    tema: string;
+    projetoAcao: string;
+    tipoAtendimento: string;
+    canalAtendimento: string;
+    descricao: string;
+    pendencias: string;
+    telefones: TelefoneEmailType[];
+    emails: TelefoneEmailType[];
+    enderecos: EnderecoType[];
+    Pfpj: PfpjType[];
+  };

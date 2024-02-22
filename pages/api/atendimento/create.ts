@@ -7,7 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const { cpf, ...dados } = req.body;
-      const { telefones, emails, enderecos, ...clienteDados } = dados;
+      const { telefones, emails, enderecos, Pfpj, ...clienteDados } = dados;
+      console.log("teste api", Pfpj)
 
       const updatedCliente = await prisma.cliente.upsert({
         where: {
@@ -15,6 +16,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         update: {
           ...clienteDados,
+          Pfpj: {
+            upsert: Pfpj.map(t => ({
+              where: { id: t.id || -1 },
+              update: t,
+              create: t,
+            }))
+          },
           telefones: {
             upsert: telefones.map(t => ({
               where: { id: t.id || -1 },
@@ -40,6 +48,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         create: {
           ...clienteDados,
           cpf: cpf,
+          Pfpj: {
+            create: Pfpj,
+          },
           telefones: {
             create: telefones,
           },
