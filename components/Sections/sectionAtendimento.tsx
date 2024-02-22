@@ -119,7 +119,7 @@ export default function SectionAtendimento() {
                         </div>
                     </div>
                     <div className="pb-10">
-                        <Form.List name="temaSubtema">
+                        <Form.List name="TemaSubtema">
                             {(fields, { add, remove }) => (
                                 <div style={{ display: 'flex', rowGap: 4, flexDirection: 'column' }}>
                                     {fields.map((field, index) => (

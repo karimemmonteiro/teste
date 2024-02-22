@@ -6,70 +6,86 @@ const prisma = new PrismaClient();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const { cpf, ...dados } = req.body;
-      const { telefones, emails, enderecos, Pfpj, ...clienteDados } = dados;
-      console.log("teste api", Pfpj)
+      const {
+        cpf,
+        nome,
+        dataNascimento,
+        produtorRural,
+        estudante,
+        lgpd,
+        pfpj,
+        telefones,
+        emails,
+        enderecos
+      } = req.body;
 
-      const updatedCliente = await prisma.cliente.upsert({
-        where: {
-          cpf: cpf,
-        },
-        update: {
-          ...clienteDados,
+      const createdCliente = await prisma.cliente.create({
+        data: {
+          cpf,
+          nome,
+          dataNascimento,
+          produtorRural,
+          estudante,
+          lgpd,
           Pfpj: {
-            upsert: Pfpj.map(t => ({
-              where: { id: t.id || -1 },
-              update: t,
-              create: t,
+            create: pfpj.map(item => ({
+              razaoSocial: item.razaoSocial,
+              cnpj: item.cnpj,
+              nomeFantasia: item.nomeFantasia,
+              dataCriacaoRelatorio: item.dataCriacaoRelatorio,
+              descricaoStatusReceita: item.descricaoStatusReceita,
+              descPorte: item.descPorte,
+              quantidadeFuncionarios: item.quantidadeFuncionarios,
+              descNaturezaJuridica: item.descNaturezaJuridica,
+              atividade: item.atividade
             }))
           },
-          telefones: {
-            upsert: telefones.map(t => ({
-              where: { id: t.id || -1 },
-              update: t,
-              create: t,
+          Telefone: {
+            create: telefones.map(item => ({
+              descComunic: item.descComunic,
+              numero: item.numero,
+              autorizaMensagem: item.autorizaMensagem,
+              recebeContato: item.recebeContato,
+              principal: item.principal,
+              recebeSMS: item.recebeSMS
             }))
           },
-          emails: {
-            upsert: emails.map(e => ({
-              where: { id: e.id || -1 },
-              update: e,
-              create: e,
+          Email: {
+            create: emails.map(item => ({
+              descComunic: item.descComunic,
+              numero: item.numero,
+              autorizaMensagem: item.autorizaMensagem,
+              recebeContato: item.recebeContato,
+              principal: item.principal,
+              recebeSMS: item.recebeSMS
             }))
           },
-          enderecos: {
-            upsert: enderecos.map(end => ({
-              where: { id: end.id || -1 },
-              update: end,
-              create: end,
+          Endereco: {
+            create: enderecos.map(item => ({
+              cep: item.cep,
+              descBairro: item.descBairro,
+              codBairro: item.codBairro,
+              descEndereco: item.descEndereco,
+              codEndereco: item.codEndereco,
+              numero: item.numero,
+              descEst: item.descEst,
+              codEst: item.codEst,
+              descCid: item.descCid,
+              codCid: item.codCid,
+              autorizaCorrespondencia: item.autorizaCorrespondencia,
+              complemento: item.complemento,
+              principal: item.principal
             }))
-          },
-        },
-        create: {
-          ...clienteDados,
-          cpf: cpf,
-          Pfpj: {
-            create: Pfpj,
-          },
-          telefones: {
-            create: telefones,
-          },
-          emails: {
-            create: emails,
-          },
-          enderecos: {
-            create: enderecos,
-          },
+          }
         }
       });
 
-      res.status(200).json({ message: 'Cadastrado com Sucesso', cliente: updatedCliente, status: 200 });
+      res.status(200).json({ message: 'Cliente criado com sucesso', cliente: createdCliente });
     } catch (error) {
-      console.error("Erro:", error);
-      res.status(401).json({ message: 'Falha na autenticação' });
+      console.error('Erro:', error);
+      res.status(500).json({ message: 'Erro ao criar cliente' });
     }
-
   } else {
-    res.status(405).json({ message: 'Method not allowed' });
+    res.status(405).json({ message: 'Método não permitido' });
   }
 }

@@ -1,10 +1,17 @@
 export default async function MontagemObjetoForm(form: any, values: any) {
-    const criacao = typeof window !== 'undefined' ? localStorage.getItem('dataCriacao') : null;
-    const nascimento = typeof window !== 'undefined' ? localStorage.getItem('dataNascimento') : null;
-    console.log("teste", values)
     const dadosForm = form?.getFieldValue()
     let dataCriacao = ""
     let dataNascimento = ""
+    let validacaoReturn = true
+    let telefone = dadosForm.telefones
+    telefone = telefone.map(({ id,clienteId, ...restoDoObjeto }) => restoDoObjeto);
+    let email =  dadosForm.emails
+    email = email.map(({ id,clienteId, ...restoDoObjeto }) => restoDoObjeto);
+    let endereco = dadosForm.enderecos
+    endereco = endereco.map(({ id,clienteId, ...restoDoObjeto }) => restoDoObjeto);
+    const criacao = typeof window !== 'undefined' ? localStorage.getItem('dataCriacao') : null;
+    const nascimento = typeof window !== 'undefined' ? localStorage.getItem('dataNascimento') : null;
+    
     if(dadosForm?.Pfpj[0]?.dataCriacaoRelatorio !== undefined){
         dataCriacao = dadosForm?.Pfpj[0]?.dataCriacaoRelatorio
     }else{
@@ -15,13 +22,7 @@ export default async function MontagemObjetoForm(form: any, values: any) {
     }else{
         dataNascimento = nascimento
     }
-    let validacaoReturn = true
-    let telefone = dadosForm.telefones
-    telefone = telefone.map(({ id,clienteId, ...restoDoObjeto }) => restoDoObjeto);
-    let email =  dadosForm.emails
-    email = email.map(({ id,clienteId, ...restoDoObjeto }) => restoDoObjeto);
-    let endereco = dadosForm.enderecos
-    endereco = endereco.map(({ id,clienteId, ...restoDoObjeto }) => restoDoObjeto);
+    
     const pj = [
         {
             razaoSocial: dadosForm?.Pfpj[0]?.razaoSocial,

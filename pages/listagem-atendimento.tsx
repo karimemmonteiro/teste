@@ -5,7 +5,7 @@ import { Button, Input, Space, Table, notification } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import Sidebar from '../components/SideBar';
 import { apiNext } from '../config/connection';
-// import Highlighter from 'react-highlight-words';
+import { PfpjType } from '../ultils/types/typesAtendimento';
 
 type InputRef = GetRef<typeof Input>;
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
@@ -19,7 +19,10 @@ interface DataType {
   dataCriacaoRelatorio: string,
   dadosCliente: string,
   categoria: string,
-  tempoAtendimento: string
+  tempoAtendimento: string,
+  projetoAcao: string,
+  descricao: string
+  pfpj: PfpjType
 }
 
 type DataIndex = keyof DataType;
@@ -173,11 +176,11 @@ export default function ListaAtendimentos() {
 
   const columns: TableColumnsType<DataType> = [
     {
-      title: 'Data',
-      dataIndex: 'dataCriacaoRelatorio',
-      key: 'dataCriacaoRelatorio',
+      title: 'Projeto/Ação',
+      dataIndex: 'projetoAcao',
+      key: 'projetoAcao',
       width: '1%',
-      ...getColumnSearchProps('dataCriacaoRelatorio'),
+      ...getColumnSearchProps('projetoAcao'),
     },
     {
       title: 'Dados Cliente',
@@ -187,11 +190,11 @@ export default function ListaAtendimentos() {
       ...getColumnSearchProps('nome'),
     },
     {
-      title: 'Porte',
-      dataIndex: 'descPorte',
-      key: 'descPorte',
+      title: 'Descricao',
+      dataIndex: 'descricao',
+      key: 'descricao',
       width: '5%',
-      ...getColumnSearchProps('descPorte'),
+      ...getColumnSearchProps('descricao'),
     },
     // {
     //   title: 'Categoria',

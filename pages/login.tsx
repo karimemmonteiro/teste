@@ -25,7 +25,6 @@ const Login = (props) => {
       function removeNonNumericChars(cpf) {
           return cpf.replace(/\D/g, '');
       }
-  
       async function Login(params: FieldType) {
           const cpfWithoutMask = removeNonNumericChars(params.cpf);
           if (isOnline) {
