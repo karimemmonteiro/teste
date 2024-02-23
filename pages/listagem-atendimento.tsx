@@ -48,7 +48,6 @@ export default function ListaAtendimentos() {
   async function obterDadosAtendimentos() {
     try {
       const response = await apiNext.get('/atendimento/');
-      console.log('Dados recebidos:', response.data);
       setDados(response.data)
     } catch (error) {
       console.error('Erro ao receber os dados:', error);
@@ -246,7 +245,6 @@ export default function ListaAtendimentos() {
     },
   ];
 
-  console.log("teste online", online)
   return (
     <div>
       {contextHolder}

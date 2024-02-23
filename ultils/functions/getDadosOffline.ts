@@ -13,7 +13,6 @@ export default async function GetDadosPorCpfOffline(data) {
 
     const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
     const user = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
-    console.log("teste cpf", data)
     const cpfWithoutMask = removeNonNumericChars(data);
 
     
@@ -57,7 +56,6 @@ export default async function GetDadosPorCpfOffline(data) {
     try {
         const response = await apiNext.get(`/atendimento/buscar-por-cpf?cpf=${cpfWithoutMask}`);
         const data = response.data
-        console.log("teste dados", data);
         localStorage.setItem('dataNascimento', data?.dataNascimento);
         localStorage.setItem('dataCriacao', data?.Pfpj[0]?.dataCriacaoRelatorio);
         const dadosPfpjSemDataCriacao = data.Pfpj.map(({ dataCriacaoRelatorio, ...restoDoObjeto }) => restoDoObjeto);

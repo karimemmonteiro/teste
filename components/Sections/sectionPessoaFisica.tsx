@@ -17,12 +17,10 @@ export default function SectionPessoaFisica({ dadosPf, form }) {
     useEffect(() => {
         // const camposObrigatorios = ["lgpt"];
         // const todosPreenchidos = camposObrigatorios.every(campo => form?.getFieldValue(campo));
-        // console.log("teste dados validados", todosPreenchidos)
 
         if (form) {
             const dadosForm = form?.getFieldValue()
             const validador = true
-            console.log("teste dados validados", validador)
             
             setTodosCamposPreenchidos(validador);
         }

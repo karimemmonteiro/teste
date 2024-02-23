@@ -29,7 +29,6 @@ export default function Atendimento(props) {
 
 
   const dadosPf = (data) => {
-    console.log("teste current", current)
   };
 
   const steps = [
@@ -84,7 +83,6 @@ export default function Atendimento(props) {
       const response = await apiNext.post("/atendimento/create", params
       );
       const responseData = response.data;
-      console.log("teste post", responseData)
       if (responseData.status === 200) {
         setCurrent(0)
         window.location.href = "/listagem-atendimento";

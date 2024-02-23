@@ -23,7 +23,6 @@ async function Login(params: FieldType) {
             }
             );
             const responseData = response.data;
-            console.log("test login", responseData)
             if (responseData.status === 200) {
                 localStorage.setItem('userToken', responseData.user.token);
                 localStorage.setItem('userCpf', cpfWithoutMask);
@@ -32,7 +31,7 @@ async function Login(params: FieldType) {
                     window.location.href = "/atendimento";
                 }
             } else {
-                console.log("error")
+                console.error("error")
             }
 
         } catch (error) {
@@ -43,7 +42,6 @@ async function Login(params: FieldType) {
             const response = await apiNext.get(`/users/${cpfWithoutMask}?senha=${params.password}`
             );
             const responseData = response.data;
-            console.log("test login", responseData)
             if (responseData.status === 200) {
                 localStorage.setItem('userToken', responseData.user.token);
                 localStorage.setItem('userCpf', cpfWithoutMask);
@@ -52,7 +50,7 @@ async function Login(params: FieldType) {
                     window.location.href = "/atendimento";
                 }
             } else {
-                console.log("error")
+                console.error("error")
             }
 
         } catch (error) {

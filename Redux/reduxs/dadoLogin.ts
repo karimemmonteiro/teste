@@ -14,7 +14,6 @@ const initialState = {
 export const dadosLogin = (state = initialState, action: any) => {
     switch (action.type) {
         case DADOS_LOGIN:
-            console.log("Ação Despachada:", action);
             return {
                 ...state,
                 ...action.payload,

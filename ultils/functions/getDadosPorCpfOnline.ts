@@ -5,7 +5,6 @@ import removeNonNumericChars from "./removePontosCpf";
 export default async function GetDadosPorCpf(data) {
     const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
     const user = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
-    console.log("teste cpf", data)
     const cpfWithoutMask = removeNonNumericChars(data);
     try {
         const response = await apiNext.get(`/atendimento/buscar-dados/?cpf=${cpfWithoutMask}`, {
@@ -14,9 +13,7 @@ export default async function GetDadosPorCpf(data) {
                 'Content-Type': 'application/json',
             },
         });
-        console.log("teste dados", response)
         if (response.status === 200) {
-            console.log("teste ok", response.status)
             const responseData = response?.data;
             const dadosContatos = responseData.clienteContatos
             if (responseData.pfpj !== null) { }
@@ -91,7 +88,6 @@ export default async function GetDadosPorCpf(data) {
                 enderecos: dadosEnderecos
             };
 
-            console.log("teste form ================", formValues);
         } else {
             console.error("cpf invalido")
         }

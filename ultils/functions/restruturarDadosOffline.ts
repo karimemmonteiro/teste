@@ -1,6 +1,5 @@
 export default async function RestruturacaoDadosOffline(values: any) {
     const data = values
-    console.log("teste dados ", values)
     let dadosEmail = data.clienteContatos.filter(item => item.descComunic === "E-MAIL");
     let dadosTelefone = data.clienteContatos.filter(item => item.descComunic === "TELEFONE CELULAR");
 

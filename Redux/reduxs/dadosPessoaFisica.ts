@@ -14,7 +14,6 @@ const initialState = {
 export const pessoaFisicaReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case PESSOA_FISICA:
-            console.log("Ação Despachada:", action);
             return {
                 ...state,
                 ...action.payload,

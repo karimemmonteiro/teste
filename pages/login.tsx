@@ -37,7 +37,6 @@ const Login = (props) => {
                   }
                   );
                   const responseData = response.data;
-                  console.log("test login", responseData)
                   if (responseData.status === 200) {
                       localStorage.setItem('userToken', responseData.user.token);
                       localStorage.setItem('userCpf', cpfWithoutMask);
@@ -54,7 +53,6 @@ const Login = (props) => {
                   const response = await apiNext.get(`/users/${cpfWithoutMask}?senha=${params.password}`
                   );
                   const responseData = response.data;
-                  console.log("test login", responseData)
                   if (responseData.status === 200) {
                       localStorage.setItem('userToken', responseData.user.token);
                       localStorage.setItem('userCpf', cpfWithoutMask);
