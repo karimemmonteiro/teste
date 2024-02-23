@@ -12,13 +12,11 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const store = createStore(rootReducer);
   const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
-  console.log("teste login", userToken)
 
   useEffect(() => {
     if (userToken !== null) {
       const decoded: any = jwtDecode<JwtPayload>(userToken);
       localStorage.setItem('userName', decoded?.name);
-      console.log("teste description token:", decoded)
 
     } else {
       if (window.location.pathname !== "/") {

@@ -5,9 +5,10 @@ import { RequiredMark } from "antd/es/form/Form";
 import { useDispatch } from "react-redux";
 
 export default function SectionPessoaJuridica() {
+    const dataCriacao = typeof window !== 'undefined' ? localStorage.getItem('dataCriacao') : null;
     const dispatch = useDispatch();
     const [, setRequiredMarkType] = useState<RequiredMark>('optional');
-    const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY']
+    const dateFormat = 'DD/MM/YYYY';
 
     const options: SelectProps['options'] = [];
 
@@ -78,7 +79,7 @@ export default function SectionPessoaJuridica() {
                         name="dataCriacaoRelatorio"
                         required
                     >
-                        <DatePicker format={dateFormatList} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
+                        <DatePicker defaultValue={dayjs(dataCriacao, dateFormat)} format={dateFormat} className="h-11 rounded text-lg hover:border-azulSebrae focus:border-azulSebrae w-full" />
                     </Form.Item>
                 </div>
                 <div>

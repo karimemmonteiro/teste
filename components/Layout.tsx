@@ -16,7 +16,6 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
       navigator.serviceWorker
         .register('/service-worker.js')
         .then((registration) => {
-          console.log('Service Worker registrado com sucesso:', registration);
         })
         .catch((error) => {
           console.error('Erro ao registrar o Service Worker:', error);
@@ -37,6 +36,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
     <div>
       <Head>
         <title>{title}</title>
+        <html lang="pt-br" />
         <link rel="manifest" href="/manifest.json" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

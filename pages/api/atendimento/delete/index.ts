@@ -19,6 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await prisma.endereco.deleteMany({ where: { clienteId: existingCliente.id } });
       await prisma.email.deleteMany({ where: { clienteId: existingCliente.id } });
       await prisma.telefone.deleteMany({ where: { clienteId: existingCliente.id } });
+      await prisma.pfpj.deleteMany({ where: { clienteId: existingCliente.id } });
+      await prisma.atendimento.deleteMany({ where: { clienteId: existingCliente.id } });
       await prisma.cliente.delete({
         where: { cpf: String(cpf) },
       });

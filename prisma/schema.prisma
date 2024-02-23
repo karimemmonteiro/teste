@@ -21,15 +21,54 @@ model User {
 //Tabelas de cadastro atendimento
 
 model Cliente {
-  id                     Int        @id @default(autoincrement())
-  cpf                    String     @unique
-  nome                   String
-  dataNascimento         String
-  produtorRural          Boolean
-  estudante              Boolean
-  lgpd                   Boolean?
-  status                 String
-  //dadosPj
+  id             Int      @id @default(autoincrement())
+  //dados Pessoa Fisica
+  cpf            String   @unique
+  nome           String
+  dataNascimento String
+  produtorRural  Boolean
+  estudante      Boolean
+  lgpd           Boolean?
+
+  Atendimento Atendimento[]
+  Pfpj        Pfpj[]
+  Telefone    Telefone[]
+  Email       Email[]
+  Endereco    Endereco[]
+}
+
+model Atendimento {
+  id               Int           @id @default(autoincrement())
+  cliente          Cliente       @relation(fields: [clienteId], references: [id])
+  clienteId        Int
+  // dados atendimento
+  status           String
+  funoIfAtendente  String
+  atendente        String
+  tempoAtendimento String
+  projetoAcao      String
+  tipoAtendimento  String
+  canalAtendimento String
+  descricao        String
+  pendencias       String
+  TemaSubtema      TemaSubtema[]
+}
+
+model TemaSubtema {
+  id            Int         @id @default(autoincrement())
+  Atendimento   Atendimento @relation(fields: [atendimentoId], references: [id])
+  atendimentoId Int
+  tema          String
+  codTema       String
+  subTema       String
+  codSubTema    String
+}
+
+model Pfpj {
+  id                     Int     @id @default(autoincrement())
+  cliente                Cliente @relation(fields: [clienteId], references: [id])
+  clienteId              Int
+  // Dados PJ
   razaoSocial            String
   cnpj                   String
   nomeFantasia           String
@@ -39,56 +78,55 @@ model Cliente {
   quantidadeFuncionarios Int
   descNaturezaJuridica   String
   atividade              String
-  // dados atendimento
-  atendente String
-  tempoAtendimento String
-  unidadeOrganizacional String
-  tema String
-  projetoAcao String
-  tipoAtendimento String
-  canalAtendimento String
-  descricao String
-  pendencias String
-  telefones              Telefone[]
-  emails                 Email[]
-  enderecos              Endereco[]
 }
 
 model Telefone {
   id               Int     @id @default(autoincrement())
   cliente          Cliente @relation(fields: [clienteId], references: [id])
   clienteId        Int
+  // Dados Telefone
+  codComunic       Int
   descComunic      String
   numero           String
-  autorizaMensagem Int
-  recebeContato    Int
-  principal        Int
-  recebeSMS        Int
+  recebeContato    Int?
+  recebeSMS        Int?
+  principal        Int?
+  autorizaLigacao  Int?
+  autorizaMensagem Int?
 }
 
 model Email {
   id               Int     @id @default(autoincrement())
   cliente          Cliente @relation(fields: [clienteId], references: [id])
   clienteId        Int
+  // Dados Email
+  codComunic       Int
   descComunic      String
   numero           String
-  autorizaMensagem Int
-  recebeContato    Int
+  recebeContato    Int?
+  recebeSMS        Int?
   principal        Int
-  recebeSMS        Int
+  autorizaLigacao  Int?
+  autorizaMensagem Int?
 }
 
 model Endereco {
   id                      Int      @id @default(autoincrement())
   cliente                 Cliente  @relation(fields: [clienteId], references: [id])
   clienteId               Int
-  cep                     Int?
-  descBairro              String?
+  // Dados Endereço
   descEndereco            String
   numero                  String
-  descEst                 String?
-  descCid                 String?
-  autorizaCorrespondencia Boolean?
   complemento             String?
+  codBairro               Int?
+  descBairro              String
+  codCid                  Int?
+  descCid                 String
+  codEst                  Int?
+  descEst                 String
+  codPais                 Int?
+  descPais                String
+  cep                     Int
   principal               Int
+  autorizaCorrespondencia Boolean?
 }
